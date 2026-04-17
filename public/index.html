@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Studio 1i</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --orange:#fe7b03;--red:#fb5702;--dark:#0c0c0c;--surface:#161616;
+  --surface2:#1e1e1e;--border:rgba(255,255,255,0.07);--text:#f0f0f0;--muted:#888;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',sans-serif;background:var(--dark);color:var(--text);min-height:100vh}
+.app{display:flex;min-height:100vh}
+.sidebar{width:220px;min-width:220px;background:var(--surface);border-right:1px solid var(--border);display:flex;flex-direction:column;position:sticky;top:0;height:100vh}
+.logo{padding:20px;border-bottom:1px solid var(--border)}
+.logo-main{font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:2px;color:var(--orange)}
+.logo-sub{font-size:10px;color:var(--muted);letter-spacing:1px;text-transform:uppercase}
+.nav{padding:12px 8px;flex:1}
+.nav-item{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:8px;cursor:pointer;font-size:14px;color:var(--muted);transition:all .2s;margin-bottom:2px}
+.nav-item:hover,.nav-item.active{background:rgba(254,123,3,.1);color:var(--orange)}
+.nav-icon{width:18px;text-align:center;font-size:16px}
+.client-selector{padding:12px;border-top:1px solid var(--border)}
+.client-select{width:100%;background:var(--surface2);border:1px solid var(--border);color:var(--text);padding:8px 10px;border-radius:8px;font-size:13px;outline:none;cursor:pointer}
+.main{flex:1;overflow-y:auto}
+.page{display:none;padding:2rem}
+.page.active{display:block}
+.page-title{font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:1px;color:var(--text);margin-bottom:1.5rem;display:flex;align-items:center;gap:10px}
+.page-title span{color:var(--orange)}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1.25rem;margin-bottom:1rem}
+.card-title{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--orange);margin-bottom:12px}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
+input,textarea,select{width:100%;background:var(--surface2);border:1px solid var(--border);color:var(--text);padding:10px 12px;border-radius:8px;font-family:'DM Sans',sans-serif;font-size:14px;outline:none;transition:border-color .2s}
+input:focus,textarea:focus{border-color:var(--orange)}
+textarea{min-height:80px;resize:vertical}
+label{font-size:12px;color:var(--muted);margin-bottom:6px;display:block}
+.btn{padding:10px 20px;border-radius:8px;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;transition:all .2s}
+.btn-primary{background:var(--orange);color:#fff}
+.btn-primary:hover{background:var(--red)}
+.btn-outline{background:transparent;border:1px solid var(--border);color:var(--muted)}
+.btn-outline:hover{border-color:var(--orange);color:var(--orange)}
+.btn-danger{background:transparent;border:1px solid #a32d2d;color:#e24b4a}
+.btn-danger:hover{background:#a32d2d;color:#fff}
+.btn-full{width:100%;font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:1px;padding:14px}
+.tag{background:rgba(254,123,3,.1);color:var(--orange);font-size:12px;padding:4px 10px;border-radius:20px;border:1px solid rgba(254,123,3,.2);display:inline-block;margin:2px}
+.status-badge{font-size:11px;padding:3px 10px;border-radius:20px;display:inline-block}
+.status-sugerido{background:rgba(254,123,3,.15);color:var(--orange)}
+.status-producao{background:rgba(23,147,206,.15);color:#4db6e8}
+.status-publicado{background:rgba(59,109,17,.2);color:#7bc142}
+.client-card{background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:14px;display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.client-info .name{font-weight:500;font-size:15px}
+.client-info .sub{font-size:12px;color:var(--muted);margin-top:2px}
+.section-block{background:var(--surface2);border-radius:10px;padding:14px;margin-bottom:10px}
+.section-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--orange);margin-bottom:8px}
+.content-text{font-size:14px;line-height:1.7;white-space:pre-wrap;color:var(--text)}
+.copy-btn{background:transparent;border:1px solid var(--border);color:var(--muted);padding:5px 12px;border-radius:6px;font-size:12px;cursor:pointer;margin-top:8px;transition:all .2s}
+.copy-btn:hover{border-color:var(--orange);color:var(--orange)}
+.loading{display:none;align-items:center;gap:10px;color:var(--muted);font-size:14px;padding:1rem 0}
+.loading.show{display:flex}
+.spinner{width:18px;height:18px;border:2px solid var(--border);border-top-color:var(--orange);border-radius:50%;animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.tracker-item{background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:14px;margin-bottom:8px}
+.tracker-title{font-weight:500;font-size:14px;margin-bottom:6px}
+.tracker-meta{display:flex;gap:12px;font-size:12px;color:var(--muted);align-items:center;flex-wrap:wrap}
+.stat-card{background:var(--surface2);border-radius:10px;padding:16px;text-align:center}
+.stat-num{font-family:'Bebas Neue',sans-serif;font-size:36px;color:var(--orange)}
+.stat-label{font-size:12px;color:var(--muted);margin-top:4px}
+.history-item{background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:14px;margin-bottom:8px;cursor:pointer;transition:border-color .2s}
+.history-item:hover{border-color:var(--orange)}
+.history-topic{font-weight:500;font-size:14px}
+.history-date{font-size:12px;color:var(--muted);margin-top:4px}
+.tabs{display:flex;gap:4px;margin-bottom:1.5rem;background:var(--surface);border-radius:10px;padding:4px;border:1px solid var(--border)}
+.tab{padding:8px 16px;border-radius:7px;cursor:pointer;font-size:13px;font-weight:500;color:var(--muted);transition:all .2s;flex:1;text-align:center}
+.tab.active{background:var(--orange);color:#fff}
+.modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:100;align-items:center;justify-content:center}
+.modal.show{display:flex}
+.modal-box{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:2rem;width:90%;max-width:520px;max-height:85vh;overflow-y:auto}
+.modal-title{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:1px;color:var(--text);margin-bottom:1.5rem}
+.form-row{margin-bottom:1rem}
+.btn-row{display:flex;gap:8px;margin-top:1.5rem}
+.empty-state{text-align:center;padding:3rem;color:var(--muted)}
+.empty-icon{font-size:48px;margin-bottom:1rem;opacity:.3}
+.empty-text{font-size:14px}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="sidebar">
+    <div class="logo">
+      <div class="logo-main">Studio 1i</div>
+      <div class="logo-sub">Plataforma de Conteudo</div>
+    </div>
+    <nav class="nav">
+      <div class="nav-item active" onclick="showPage('dashboard')"><span class="nav-icon">✉</span> Dashboard</div>
+      <div class="nav-item" onclick="showPage('clientes')"><span class="nav-icon">✮</span> Clientes</div>
+      <div class="nav-item" onclick="showPage('dna')"><span class="nav-icon">✨</span> DNA do Cliente</div>
+      <div class="nav-item" onclick="showPage('gerador')"><span class="nav-icon">✦</span> Gerador</div>
+      <div class="nav-item" onclick="showPage('tracker')"><span class="nav-icon">✧</span> Tracker</div>
+      <div class="nav-item" onclick="showPage('historico')"><span class="nav-icon">▣</span> Histórico</div>
+      <div class="nav-item" onclick="showPage('config')"><span class="nav-icon">✉</span> Config</div>
+    </nav>
+    <div class="client-selector">
+      <label style="font-size:10px;color:var(--muted);letter-spacing:1px;text-transform:uppercase">Cliente ativo</label>
+      <select class="client-select" id="clientSelect" onchange="selectClient(this.value)">
+        <option value="">Selecione...</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="main">
+
+    <!-- DASHBOARD -->
+    <div class="page active" id="page-dashboard">
+      <div class="page-title">Dashboard <span>1i</span></div>
+      <div class="grid-3" id="dashStats">
+        <div class="stat-card"><div class="stat-num" id="statClientes">0</div><div class="stat-label">Clientes</div></div>
+        <div class="stat-card"><div class="stat-num" id="statGeracoes">0</div><div class="stat-label">Conteúdos Gerados</div></div>
+        <div class="stat-card"><div class="stat-num" id="statPautas">0</div><div class="stat-label">Pautas no Tracker</div></div>
+      </div>
+      <div class="card" style="margin-top:1.5rem">
+        <div class="card-title">Ações Rápidas</div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap">
+          <button class="btn btn-primary" onclick="showPage('gerador')">+ Gerar Conteúdo</button>
+          <button class="btn btn-outline" onclick="showPage('clientes')">+ Novo Cliente</button>
+          <button class="btn btn-outline" onclick="showPage('tracker')">+ Adicionar Pauta</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- CLIENTES -->
+    <div class="page" id="page-clientes">
+      <div class="page-title">Clientes</div>
+      <div style="margin-bottom:1rem">
+        <button class="btn btn-primary" onclick="openModal('modalNovoCliente')">+ Novo Cliente</button>
+      </div>
+      <div id="listaClientes"><div class="empty-state"><div class="empty-icon">✮</div><div class="empty-text">Nenhum cliente ainda</div></div></div>
+    </div>
+
+    <!-- DNA -->
+    <div class="page" id="page-dna">
+      <div class="page-title">DNA do <span>Cliente</span></div>
+      <div id="dnaClienteNome" class="card-title" style="margin-bottom:1rem;color:var(--muted)">Selecione um cliente</div>
+      <div class="card">
+        <div class="card-title">Identidade e Tom</div>
+        <div class="grid-2">
+          <div class="form-row"><label>Tom de voz</label><input id="dna_tone" placeholder="Ex: Educativo, descontraído, direto..."></div>
+          <div class="form-row"><label>Público-alvo</label><input id="dna_audience" placeholder="Ex: Empreendedores 25-45 anos..."></div>
+        </div>
+        <div class="form-row"><label>Pilares de conteúdo</label><textarea id="dna_pillars" placeholder="Ex: Vendas, Marketing, Mentalidade..."></textarea></div>
+        <div class="form-row"><label>Voz da marca (como fala)</label><textarea id="dna_voice" placeholder="Descreva como o criador se comunica..."></textarea></div>
+      </div>
+      <div class="card">
+        <div class="card-title">Estratégia</div>
+        <div class="form-row"><label>Concorrentes principais</label><textarea id="dna_competitors" placeholder="Liste canais ou criadores similares..."></textarea></div>
+        <div class="form-row"><label>Palavras-chave do nicho</label><textarea id="dna_keywords" placeholder="Principais termos de busca do nicho..."></textarea></div>
+        <div class="form-row"><label>Notas adicionais</label><textarea id="dna_notes" placeholder="Qualquer informação importante..."></textarea></div>
+      </div>
+      <button class="btn btn-primary" onclick="saveDNA()">Salvar DNA</button>
+    </div>
+
+    <!-- GERADOR -->
+    <div class="page" id="page-gerador">
+      <div class="page-title">Gerador de <span>Conteúdo</span></div>
+      <div class="card">
+        <div class="card-title">Sobre o vídeo</div>
+        <div class="form-row"><label>Tema ou assunto do vídeo</label><textarea id="gen_tema" rows="3" placeholder="Descreva o tema, ou cole a transcrição..."></textarea></div>
+        <div class="grid-2">
+          <div class="form-row"><label>Nome do apresentador / canal</label><input id="gen_autor" placeholder="Ex: Ariadne - Canal Amazon"></div>
+          <div class="form-row"><label>Nicho</label><input id="gen_niche" placeholder="Ex: Amazon, E-commerce..."></div>
+        </div>
+        <button class="btn btn-primary btn-full" id="btnGerar" onclick="gerarConteudo()">GERAR CONTEÚDO COMPLETO</button>
+        <div class="loading" id="loadingGerador"><div class="spinner"></div><span id="loadingText">Gerando...</span></div>
+      </div>
+
+      <div id="resultadoGerador" style="display:none">
+        <div class="card">
+          <div class="section-label">Títulos SEO</div>
+          <div class="content-text" id="res_titulos"></div>
+          <button class="copy-btn" onclick="copiar('res_titulos',this)">Copiar</button>
+        </div>
+        <div class="card">
+          <div class="section-label">Descrição</div>
+          <div class="content-text" id="res_descricao"></div>
+          <button class="copy-btn" onclick="copiar('res_descricao',this)">Copiar</button>
+        </div>
+        <div class="card">
+          <div class="section-label">Capítulos</div>
+          <div class="content-text" id="res_capitulos"></div>
+          <button class="copy-btn" onclick="copiar('res_capitulos',this)">Copiar</button>
+        </div>
+        <div class="card">
+          <div class="section-label">Tags</div>
+          <div id="res_tags_visual"></div>
+          <div id="res_tags_raw" style="display:none"></div>
+          <button class="copy-btn" onclick="copiar('res_tags_raw',this)">Copiar tags</button>
+        </div>
+        <div class="card">
+          <div class="section-label">E-mail Marketing</div>
+          <div class="content-text" id="res_email"></div>
+          <button class="copy-btn" onclick="copiar('res_email',this)">Copiar</button>
+        </div>
+        <div class="card">
+          <div class="section-label">Briefing Thumbnail</div>
+          <div class="content-text" id="res_thumb_brief"></div>
+        </div>
+        <div class="card">
+          <div class="section-label">Prompt Midjourney</div>
+          <div class="content-text" id="res_thumb_prompt" style="font-family:monospace;font-size:12px;background:var(--dark);padding:12px;border-radius:8px;border:1px solid var(--border)"></div>
+          <button class="copy-btn" onclick="copiar('res_thumb_prompt',this)">Copiar prompt</button>
+        </div>
+        <button class="btn btn-primary" onclick="salvarConteudo()">Salvar no Histórico</button>
+      </div>
+    </div>
+
+    <!-- TRACKER -->
+    <div class="page" id="page-tracker">
+      <div class="page-title">Tracker de <span>Pautas</span></div>
+      <div style="display:flex;gap:10px;margin-bottom:1rem;align-items:center;flex-wrap:wrap">
+        <button class="btn btn-primary" onclick="openModal('modalNovaPauta')">+ Nova Pauta</button>
+        <button class="btn btn-outline" id="btnSugerirPautas" onclick="sugerirPautas()">&#10022; Sugerir com IA</button>
+      </div>
+      <div class="loading" id="loadingTracker"><div class="spinner"></div><span>Sugerindo pautas...</span></div>
+      <div id="listaTracker"><div class="empty-state"><div class="empty-icon">✧</div><div class="empty-text">Nenhuma pauta ainda</div></div></div>
+    </div>
+
+    <!-- HISTÓRICO -->
+    <div class="page" id="page-historico">
+      <div class="page-title">Histórico</div>
+      <div id="listaHistorico"><div class="empty-state"><div class="empty-icon">▣</div><div class="empty-text">Nenhum conteúdo gerado ainda</div></div></div>
+    </div>
+
+    <!-- CONFIG -->
+    <div class="page" id="page-config">
+      <div class="page-title">Configurações</div>
+      <div class="card">
+        <div class="card-title">API Key do Claude</div>
+        <div class="form-row"><label>Anthropic API Key</label><input type="password" id="cfg_apikey" placeholder="sk-ant-..."></div>
+        <button class="btn btn-primary" onclick="salvarConfig()">Salvar</button>
+        <p style="font-size:12px;color:var(--muted);margin-top:8px">A chave é salva no servidor via variável de ambiente.</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- MODAL NOVO CLIENTE -->
+<div class="modal" id="modalNovoCliente">
+  <div class="modal-box">
+    <div class="modal-title">Novo Cliente</div>
+    <div class="form-row"><label>Nome *</label><input id="nc_nome" placeholder="Nome completo"></div>
+    <div class="form-row"><label>Email *</label><input id="nc_email" placeholder="email@exemplo.com" type="email"></div>
+    <div class="form-row"><label>Nome do Canal</label><input id="nc_canal" placeholder="Nome do canal YouTube"></div>
+    <div class="form-row"><label>Nicho</label><input id="nc_nicho" placeholder="Ex: Amazon, Finanças, Culinária..."></div>
+    <div class="btn-row">
+      <button class="btn btn-primary" onclick="criarCliente()">Criar Cliente</button>
+      <button class="btn btn-outline" onclick="closeModal('modalNovoCliente')">Cancelar</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL NOVA PAUTA -->
+<div class="modal" id="modalNovaPauta">
+  <div class="modal-box">
+    <div class="modal-title">Nova Pauta</div>
+    <div class="form-row"><label>Título / Tema *</label><input id="np_titulo" placeholder="Ex: Como vender na Amazon sem estoque"></div>
+    <div class="form-row"><label>Nicho</label><input id="np_nicho" placeholder="Ex: Amazon, E-commerce..."></div>
+    <div class="form-row"><label>Ângulo sugerido</label><textarea id="np_angulo" placeholder="Como você abordaria esse tema?"></textarea></div>
+    <div class="grid-2">
+      <div class="form-row"><label>Volume de busca (est.)</label><input id="np_volume" type="number" placeholder="Ex: 5000"></div>
+      <div class="form-row"><label>Concorrência</label>
+        <select id="np_concorrencia" style="height:42px">
+          <option value="baixa">Baixa</option>
+          <option value="media" selected>Média</option>
+          <option value="alta">Alta</option>
+        </select>
+      </div>
+    </div>
+    <div class="btn-row">
+      <button class="btn btn-primary" onclick="criarPauta()">Adicionar Pauta</button>
+      <button class="btn btn-outline" onclick="closeModal('modalNovaPauta')">Cancelar</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const API = '';
+let currentClient = null;
+let clients = [];
+let lastGenerated = null;
+
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  document.getElementById('page-' + id).classList.add('active');
+  event.currentTarget && event.currentTarget.classList.add('active');
+  if (id === 'clientes') loadClientes();
+  if (id === 'dna') loadDNA();
+  if (id === 'tracker') loadTracker();
+  if (id === 'historico') loadHistorico();
+  if (id === 'dashboard') loadDashboard();
+}
+
+function openModal(id) { document.getElementById(id).classList.add('show'); }
+function closeModal(id) { document.getElementById(id).classList.remove('show'); }
+
+function selectClient(id) {
+  currentClient = clients.find(c => c.id == id) || null;
+  document.getElementById('dnaClienteNome').textContent = currentClient ? `DNA: ${currentClient.name}` : 'Selecione um cliente';
+}
+
+async function loadClients() {
+  try {
+    const r = await fetch(API + '/api/clients');
+    clients = await r.json();
+    const sel = document.getElementById('clientSelect');
+    const current = sel.value;
+    sel.innerHTML = '<option value="">Selecione...</option>';
+    clients.forEach(c => {
+      sel.innerHTML += `<option value="${c.id}" ${c.id == current ? 'selected' : ''}>${c.name}</option>`;
+    });
+    if (current) currentClient = clients.find(c => c.id == current);
+  } catch(e) { console.log(e); }
+}
+
+async function loadClientes() {
+  await loadClients();
+  const el = document.getElementById('listaClientes');
+  if (!clients.length) {
+    el.innerHTML = '<div class="empty-state"><div class="empty-icon">✮</div><div class="empty-text">Nenhum cliente ainda</div></div>';
+    return;
+  }
+  el.innerHTML = clients.map(c => `
+    <div class="client-card">
+      <div class="client-info">
+        <div class="name">${c.name}</div>
+        <div class="sub">${c.channel_name || ''} ${c.niche ? '· ' + c.niche : ''}</div>
+        <div class="sub">${c.email}</div>
+      </div>
+      <div style="display:flex;gap:8px">
+        <button class="btn btn-outline" style="font-size:12px;padding:6px 12px" onclick="activateClient(${c.id})">Selecionar</button>
+        <button class="btn btn-danger" style="font-size:12px;padding:6px 12px" onclick="deletarCliente(${c.id})">Apagar</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function activateClient(id) {
+  document.getElementById('clientSelect').value = id;
+  selectClient(id);
+  showPage('dna');
+}
+
+async function criarCliente() {
+  const name = document.getElementById('nc_nome').value.trim();
+  const email = document.getElementById('nc_email').value.trim();
+  if (!name || !email) { alert('Nome e email são obrigatórios'); return; }
+  try {
+    await fetch(API + '/api/clients', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({ name, email, channel_name: document.getElementById('nc_canal').value, niche: document.getElementById('nc_nicho').value })
+    });
+    closeModal('modalNovoCliente');
+    ['nc_nome','nc_email','nc_canal','nc_nicho'].forEach(id => document.getElementById(id).value = '');
+    await loadClientes();
+  } catch(e) { alert('Erro: ' + e.message); }
+}
+
+async function deletarCliente(id) {
+  if (!confirm('Apagar este cliente e todos os dados?')) return;
+  await fetch(API + '/api/clients/' + id, { method: 'DELETE' });
+  await loadClientes();
+}
+
+async function loadDNA() {
+  if (!currentClient) return;
+  try {
+    const r = await fetch(API + '/api/clients/' + currentClient.id + '/dna');
+    const dna = await r.json();
+    document.getElementById('dna_tone').value = dna.tone || '';
+    document.getElementById('dna_audience').value = dna.target_audience || '';
+    document.getElementById('dna_pillars').value = dna.content_pillars || '';
+    document.getElementById('dna_voice').value = dna.brand_voice || '';
+    document.getElementById('dna_competitors').value = dna.competitors || '';
+    document.getElementById('dna_keywords').value = dna.keywords || '';
+    document.getElementById('dna_notes').value = dna.extra_notes || '';
+  } catch(e) {}
+}
+
+async function saveDNA() {
+  if (!currentClient) { alert('Selecione um cliente primeiro'); return; }
+  try {
+    await fetch(API + '/api/clients/' + currentClient.id + '/dna', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({
+        tone: document.getElementById('dna_tone').value,
+        target_audience: document.getElementById('dna_audience').value,
+        content_pillars: document.getElementById('dna_pillars').value,
+        brand_voice: document.getElementById('dna_voice').value,
+        competitors: document.getElementById('dna_competitors').value,
+        keywords: document.getElementById('dna_keywords').value,
+        extra_notes: document.getElementById('dna_notes').value
+      })
+    });
+    alert('DNA salvo com sucesso!');
+  } catch(e) { alert('Erro: ' + e.message); }
+}
+
+async function gerarConteudo() {
+  const tema = document.getElementById('gen_tema').value.trim();
+  if (!tema) { alert('Informe o tema do vídeo'); return; }
+  const autor = document.getElementById('gen_autor').value.trim();
+
+  document.getElementById('btnGerar').disabled = true;
+  document.getElementById('loadingGerador').classList.add('show');
+  document.getElementById('resultadoGerador').style.display = 'none';
+
+  const msgs = ['Gerando títulos SEO...','Criando descrição...','Montando capítulos e tags...','Elaborando email...','Criando briefing de thumbnail...'];
+  let mi = 0;
+  const lt = setInterval(() => { document.getElementById('loadingText').textContent = msgs[++mi % msgs.length]; }, 2500);
+
+  const prompt = `Tema do video: "${tema}"\nApresentador/canal: "${autor || 'não informado'}"\n\nGere em JSON sem markdown:\n{\n"titulos":"5 titulos SEO numerados com emojis",\n"descricao":"descricao humanizada primeira pessoa 200-300 palavras com [LINK DO VIDEO]",\n"capitulos":"6-8 capitulos com timestamps 00:00",\n"tags":"tags csv max 500 chars",\n"email_titulo":"titulo email com emojis",\n"email_subtitulo":"subtitulo email",\n"email_corpo":"email completo com [LINK DO VIDEO]",\n"thumb_briefing":"briefing visual detalhado",\n"thumb_prompt":"prompt midjourney ingles paleta #fe7b03 #000000 @img1 --ar 16:9 --style raw"\n}`;
+
+  try {
+    const r = await fetch(API + '/api/generate', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({ messages: [{ role:'user', content: prompt }] })
+    });
+    clearInterval(lt);
+    const data = await r.json();
+    const text = data.content[0].text.replace(/```json|```/g,'').trim();
+    const json = JSON.parse(text);
+
+    document.getElementById('res_titulos').textContent = json.titulos;
+    document.getElementById('res_descricao').textContent = json.descricao;
+    document.getElementById('res_capitulos').textContent = json.capitulos;
+
+    const tags = json.tags.split(',').map(t => t.trim()).filter(Boolean);
+    document.getElementById('res_tags_visual').innerHTML = tags.map(t => `<span class="tag">${t}</span>`).join('');
+    document.getElementById('res_tags_raw').textContent = json.tags;
+
+    const emailFull = `TÍTULO: ${json.email_titulo}\nSUBTÍTULO: ${json.email_subtitulo}\n\n${json.email_corpo}`;
+    document.getElementById('res_email').textContent = emailFull;
+    document.getElementById('res_thumb_brief').textContent = json.thumb_briefing;
+    document.getElementById('res_thumb_prompt').textContent = json.thumb_prompt;
+
+    lastGenerated = { video_topic: tema, titles: json.titulos, description: json.descricao, chapters: json.capitulos, tags: json.tags, email_content: emailFull, thumb_brief: json.thumb_briefing, thumb_prompt: json.thumb_prompt };
+
+    document.getElementById('resultadoGerador').style.display = 'block';
+  } catch(e) {
+    clearInterval(lt);
+    alert('Erro ao gerar: ' + e.message);
+  }
+
+  document.getElementById('btnGerar').disabled = false;
+  document.getElementById('loadingGerador').classList.remove('show');
+}
+
+async function salvarConteudo() {
+  if (!currentClient) { alert('Selecione um cliente para salvar'); return; }
+  if (!lastGenerated) return;
+  try {
+    await fetch(API + '/api/clients/' + currentClient.id + '/content', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify(lastGenerated)
+    });
+    alert('Salvo no histórico!');
+  } catch(e) { alert('Erro: ' + e.message); }
+}
+
+async function loadTracker() {
+  if (!currentClient) {
+    document.getElementById('listaTracker').innerHTML = '<div class="empty-state"><div class="empty-icon">✧</div><div class="empty-text">Selecione um cliente para ver as pautas</div></div>';
+    return;
+  }
+  try {
+    const r = await fetch(API + '/api/clients/' + currentClient.id + '/tracker');
+    const items = await r.json();
+    const el = document.getElementById('listaTracker');
+    if (!items.length) {
+      el.innerHTML = '<div class="empty-state"><div class="empty-icon">✧</div><div class="empty-text">Nenhuma pauta ainda</div></div>';
+      return;
+    }
+    el.innerHTML = items.map(i => `
+      <div class="tracker-item">
+        <div class="tracker-title">${i.title}</div>
+        <div class="tracker-meta">
+          <span class="status-badge status-${i.status}">${i.status}</span>
+          ${i.niche ? `<span>${i.niche}</span>` : ''}
+          ${i.search_volume ? `<span>~${i.search_volume.toLocaleString()} buscas/mês</span>` : ''}
+          ${i.competition ? `<span>Concorrência ${i.competition}</span>` : ''}
+        </div>
+        ${i.suggested_angle ? `<div style="font-size:13px;color:var(--muted);margin-top:8px">${i.suggested_angle}</div>` : ''}
+        <div style="display:flex;gap:8px;margin-top:10px">
+          <select onchange="updateStatus(${i.id},this.value)" style="font-size:12px;padding:5px 8px;height:auto;width:auto">
+            <option ${i.status==='sugerido'?'selected':''} value="sugerido">Sugerido</option>
+            <option ${i.status==='producao'?'selected':''} value="producao">Em produção</option>
+            <option ${i.status==='publicado'?'selected':''} value="publicado">Publicado</option>
+          </select>
+          <button class="btn btn-danger" style="font-size:12px;padding:5px 10px" onclick="deletarPauta(${i.id})">Apagar</button>
+        </div>
+      </div>
+    `).join('');
+  } catch(e) {}
+}
+
+async function criarPauta() {
+  if (!currentClient) { alert('Selecione um cliente primeiro'); return; }
+  const title = document.getElementById('np_titulo').value.trim();
+  if (!title) { alert('Título obrigatório'); return; }
+  try {
+    await fetch(API + '/api/clients/' + currentClient.id + '/tracker', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({
+        title,
+        niche: document.getElementById('np_nicho').value,
+        suggested_angle: document.getElementById('np_angulo').value,
+        search_volume: document.getElementById('np_volume').value || 0,
+        competition: document.getElementById('np_concorrencia').value
+      })
+    });
+    closeModal('modalNovaPauta');
+    ['np_titulo','np_nicho','np_angulo','np_volume'].forEach(id => document.getElementById(id).value = '');
+    await loadTracker();
+  } catch(e) { alert('Erro: ' + e.message); }
+}
+
+async function updateStatus(id, status) {
+  await fetch(API + '/api/tracker/' + id, { method: 'DELETE' });
+  loadTracker();
+}
+
+async function deletarPauta(id) {
+  if (!confirm('Apagar esta pauta?')) return;
+  await fetch(API + '/api/tracker/' + id, { method: 'DELETE' });
+  await loadTracker();
+}
+
+async function sugerirPautas() {
+  if (!currentClient) { alert('Selecione um cliente primeiro'); return; }
+  document.getElementById('loadingTracker').classList.add('show');
+  document.getElementById('btnSugerirPautas').disabled = true;
+
+  try {
+    const dnaR = await fetch(API + '/api/clients/' + currentClient.id + '/dna');
+    const dna = await dnaR.json();
+
+    const prompt = `Cliente: ${currentClient.name}, nicho: ${currentClient.niche || dna.keywords || 'geral'}.\nPilares: ${dna.content_pillars || ''}\nPalavras-chave: ${dna.keywords || ''}\n\nSugira 5 pautas de vídeo com alto potencial de SEO. Retorne JSON:\n{"pautas":[{"title":"...","suggested_angle":"...","search_volume":1000,"competition":"media"}]}`;
+
+    const r = await fetch(API + '/api/generate', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({ messages: [{ role:'user', content: prompt }] })
+    });
+    const data = await r.json();
+    const text = data.content[0].text.replace(/```json|```/g,'').trim();
+    const json = JSON.parse(text);
+
+    for (const pauta of json.pautas) {
+      await fetch(API + '/api/clients/' + currentClient.id + '/tracker', {
+        method: 'POST',
+        headers: {'Content-Type':'application/json'},
+        body: JSON.stringify({ ...pauta, niche: currentClient.niche || '' })
+      });
+    }
+    await loadTracker();
+  } catch(e) { alert('Erro: ' + e.message); }
+
+  document.getElementById('loadingTracker').classList.remove('show');
+  document.getElementById('btnSugerirPautas').disabled = false;
+}
+
+async function loadHistorico() {
+  if (!currentClient) {
+    document.getElementById('listaHistorico').innerHTML = '<div class="empty-state"><div class="empty-icon">▣</div><div class="empty-text">Selecione um cliente</div></div>';
+    return;
+  }
+  try {
+    const r = await fetch(API + '/api/clients/' + currentClient.id + '/content');
+    const items = await r.json();
+    const el = document.getElementById('listaHistorico');
+    if (!items.length) {
+      el.innerHTML = '<div class="empty-state"><div class="empty-icon">▣</div><div class="empty-text">Nenhum conteúdo gerado ainda</div></div>';
+      return;
+    }
+    el.innerHTML = items.map(i => `
+      <div class="history-item" onclick="expandHistory(this, ${JSON.stringify(i).replace(/"/g,'&quot;')})">
+        <div class="history-topic">${i.video_topic}</div>
+        <div class="history-date">${new Date(i.created_at).toLocaleDateString('pt-BR', {day:'2-digit',month:'short',year:'numeric'})}</div>
+        <div class="history-expand" style="display:none;margin-top:12px">
+          <div class="section-label" style="margin-top:8px">Títulos</div>
+          <div style="font-size:13px;white-space:pre-wrap">${i.titles || ''}</div>
+        </div>
+      </div>
+    `).join('');
+  } catch(e) {}
+}
+
+function expandHistory(el, item) {
+  const exp = el.querySelector('.history-expand');
+  exp.style.display = exp.style.display === 'none' ? 'block' : 'none';
+}
+
+async function loadDashboard() {
+  await loadClients();
+  document.getElementById('statClientes').textContent = clients.length;
+  if (currentClient) {
+    try {
+      const [cr, tr] = await Promise.all([
+        fetch(API + '/api/clients/' + currentClient.id + '/content').then(r => r.json()),
+        fetch(API + '/api/clients/' + currentClient.id + '/tracker').then(r => r.json())
+      ]);
+      document.getElementById('statGeracoes').textContent = cr.length;
+      document.getElementById('statPautas').textContent = tr.length;
+    } catch(e) {}
+  }
+}
+
+function copiar(id, btn) {
+  const el = document.getElementById(id);
+  navigator.clipboard.writeText(el.innerText || el.textContent).then(() => {
+    btn.textContent = 'Copiado!';
+    btn.style.borderColor = '#3b6d11';
+    btn.style.color = '#7bc142';
+    setTimeout(() => { btn.textContent = 'Copiar'; btn.style.borderColor = ''; btn.style.color = ''; }, 2000);
+  });
+}
+
+function salvarConfig() {
+  alert('Para configurar a API Key, adicione a variável de ambiente ANTHROPIC_API_KEY no EasyPanel em Variáveis de Ambiente.');
+}
+
+// Init
+loadClients().then(() => loadDashboard());
+</script>
+</body>
+</html>
