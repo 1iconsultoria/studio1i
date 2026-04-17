@@ -132,9 +132,7 @@ label{font-size:12px;color:var(--muted);margin-bottom:6px;display:block}
     <!-- CLIENTES -->
     <div class="page" id="page-clientes">
       <div class="page-title">Clientes</div>
-      <div style="margin-bottom:1rem">
-        <button class="btn btn-primary" onclick="openModal('modalNovoCliente')">+ Novo Cliente</button>
-      </div>
+      <div style="margin-bottom:1rem"><button class="btn btn-primary" onclick="openModal('modalNovoCliente')">+ Novo Cliente</button></div>
       <div id="listaClientes"><div class="empty-state"><div class="empty-icon">✮</div><div class="empty-text">Nenhum cliente ainda</div></div></div>
     </div>
 
@@ -175,40 +173,17 @@ label{font-size:12px;color:var(--muted);margin-bottom:6px;display:block}
       </div>
 
       <div id="resultadoGerador" style="display:none">
-        <div class="card">
-          <div class="section-label">Títulos SEO</div>
-          <div class="content-text" id="res_titulos"></div>
-          <button class="copy-btn" onclick="copiar('res_titulos',this)">Copiar</button>
-        </div>
-        <div class="card">
-          <div class="section-label">Descrição</div>
-          <div class="content-text" id="res_descricao"></div>
-          <button class="copy-btn" onclick="copiar('res_descricao',this)">Copiar</button>
-        </div>
-        <div class="card">
-          <div class="section-label">Capítulos</div>
-          <div class="content-text" id="res_capitulos"></div>
-          <button class="copy-btn" onclick="copiar('res_capitulos',this)">Copiar</button>
-        </div>
-        <div class="card">
-          <div class="section-label">Tags</div>
-          <div id="res_tags_visual"></div>
-          <div id="res_tags_raw" style="display:none"></div>
-          <button class="copy-btn" onclick="copiar('res_tags_raw',this)">Copiar tags</button>
-        </div>
-        <div class="card">
-          <div class="section-label">E-mail Marketing</div>
-          <div class="content-text" id="res_email"></div>
-          <button class="copy-btn" onclick="copiar('res_email',this)">Copiar</button>
-        </div>
-        <div class="card">
-          <div class="section-label">Briefing Thumbnail</div>
-          <div class="content-text" id="res_thumb_brief"></div>
-        </div>
-        <div class="card">
-          <div class="section-label">Prompt Midjourney</div>
-          <div class="content-text" id="res_thumb_prompt" style="font-family:monospace;font-size:12px;background:var(--dark);padding:12px;border-radius:8px;border:1px solid var(--border)"></div>
-          <button class="copy-btn" onclick="copiar('res_thumb_prompt',this)">Copiar prompt</button>
+        <div class="card"><div class="section-label">Títulos SEO</div><div class="content-text" id="res_titulos"></div><button class="copy-btn" onclick="copiar('res_titulos',this)">Copiar</button></div>
+        <div class="card"><div class="section-label">Descrição</div><div class="content-text" id="res_descricao"></div><button class="copy-btn" onclick="copiar('res_descricao',this)">Copiar</button></div>
+        <div class="card"><div class="section-label">Capítulos</div><div class="content-text" id="res_capitulos"></div><button class="copy-btn" onclick="copiar('res_capitulos',this)">Copiar</button></div>
+        <div class="card"><div class="section-label">Tags</div><div id="res_tags_visual"></div><div id="res_tags_raw" style="display:none"></div><button class="copy-btn" onclick="copiar('res_tags_raw',this)">Copiar tags</button></div>
+        <div class="card"><div class="section-label">E-mail Marketing</div><div class="content-text" id="res_email"></div><button class="copy-btn" onclick="copiar('res_email',this)">Copiar</button></div>
+        <div class="card"><div class="section-label">Briefing Thumbnail</div><div class="content-text" id="res_thumb_brief"></div></div>
+        <div class="card"><div class="section-label">Prompt Midjourney</div><div class="content-text" id="res_thumb_prompt" style="font-family:monospace;font-size:12px;background:var(--dark);padding:12px;border-radius:8px;border:1px solid var(--border)"></div><button class="copy-btn" onclick="copiar('res_thumb_prompt',this)">Copiar prompt</button></div>
+        <div class="card" style="border-color:var(--orange);border-width:2px">
+          <div class="section-label">🎥 Roteiro em Primeira Pessoa</div>
+          <div class="content-text" id="res_roteiro" style="line-height:1.9;font-size:15px"></div>
+          <button class="copy-btn" onclick="copiar('res_roteiro',this)">Copiar roteiro</button>
         </div>
         <button class="btn btn-primary" onclick="salvarConteudo()">Salvar no Histórico</button>
       </div>
@@ -241,7 +216,6 @@ label{font-size:12px;color:var(--muted);margin-bottom:6px;display:block}
         <p style="font-size:12px;color:var(--muted);margin-top:8px">A chave é salva no servidor via variável de ambiente.</p>
       </div>
     </div>
-
   </div>
 </div>
 
@@ -252,11 +226,8 @@ label{font-size:12px;color:var(--muted);margin-bottom:6px;display:block}
     <div class="form-row"><label>Nome *</label><input id="nc_nome" placeholder="Nome completo"></div>
     <div class="form-row"><label>Email *</label><input id="nc_email" placeholder="email@exemplo.com" type="email"></div>
     <div class="form-row"><label>Nome do Canal</label><input id="nc_canal" placeholder="Nome do canal YouTube"></div>
-    <div class="form-row"><label>Nicho</label><input id="nc_nicho" placeholder="Ex: Amazon, Finanças, Culinária..."></div>
-    <div class="btn-row">
-      <button class="btn btn-primary" onclick="criarCliente()">Criar Cliente</button>
-      <button class="btn btn-outline" onclick="closeModal('modalNovoCliente')">Cancelar</button>
-    </div>
+    <div class="form-row"><label>Nicho</label><input id="nc_nicho" placeholder="Ex: Amazon, Finanças..."></div>
+    <div class="btn-row"><button class="btn btn-primary" onclick="criarCliente()">Criar Cliente</button><button class="btn btn-outline" onclick="closeModal('modalNovoCliente')">Cancelar</button></div>
   </div>
 </div>
 
@@ -269,18 +240,9 @@ label{font-size:12px;color:var(--muted);margin-bottom:6px;display:block}
     <div class="form-row"><label>Ângulo sugerido</label><textarea id="np_angulo" placeholder="Como você abordaria esse tema?"></textarea></div>
     <div class="grid-2">
       <div class="form-row"><label>Volume de busca (est.)</label><input id="np_volume" type="number" placeholder="Ex: 5000"></div>
-      <div class="form-row"><label>Concorrência</label>
-        <select id="np_concorrencia" style="height:42px">
-          <option value="baixa">Baixa</option>
-          <option value="media" selected>Média</option>
-          <option value="alta">Alta</option>
-        </select>
-      </div>
+      <div class="form-row"><label>Concorrência</label><select id="np_concorrencia" style="height:42px"><option value="baixa">Baixa</option><option value="media" selected>Média</option><option value="alta">Alta</option></select></div>
     </div>
-    <div class="btn-row">
-      <button class="btn btn-primary" onclick="criarPauta()">Adicionar Pauta</button>
-      <button class="btn btn-outline" onclick="closeModal('modalNovaPauta')">Cancelar</button>
-    </div>
+    <div class="btn-row"><button class="btn btn-primary" onclick="criarPauta()">Adicionar Pauta</button><button class="btn btn-outline" onclick="closeModal('modalNovaPauta')">Cancelar</button></div>
   </div>
 </div>
 
@@ -317,9 +279,7 @@ async function loadClients() {
     const sel = document.getElementById('clientSelect');
     const current = sel.value;
     sel.innerHTML = '<option value="">Selecione...</option>';
-    clients.forEach(c => {
-      sel.innerHTML += `<option value="${c.id}" ${c.id == current ? 'selected' : ''}>${c.name}</option>`;
-    });
+    clients.forEach(c => { sel.innerHTML += `<option value="${c.id}" ${c.id == current ? 'selected' : ''}>${c.name}</option>`; });
     if (current) currentClient = clients.find(c => c.id == current);
   } catch(e) { console.log(e); }
 }
@@ -327,41 +287,25 @@ async function loadClients() {
 async function loadClientes() {
   await loadClients();
   const el = document.getElementById('listaClientes');
-  if (!clients.length) {
-    el.innerHTML = '<div class="empty-state"><div class="empty-icon">✮</div><div class="empty-text">Nenhum cliente ainda</div></div>';
-    return;
-  }
+  if (!clients.length) { el.innerHTML = '<div class="empty-state"><div class="empty-icon">✮</div><div class="empty-text">Nenhum cliente ainda</div></div>'; return; }
   el.innerHTML = clients.map(c => `
     <div class="client-card">
-      <div class="client-info">
-        <div class="name">${c.name}</div>
-        <div class="sub">${c.channel_name || ''} ${c.niche ? '· ' + c.niche : ''}</div>
-        <div class="sub">${c.email}</div>
-      </div>
+      <div class="client-info"><div class="name">${c.name}</div><div class="sub">${c.channel_name||''} ${c.niche?'· '+c.niche:''}</div><div class="sub">${c.email}</div></div>
       <div style="display:flex;gap:8px">
         <button class="btn btn-outline" style="font-size:12px;padding:6px 12px" onclick="activateClient(${c.id})">Selecionar</button>
         <button class="btn btn-danger" style="font-size:12px;padding:6px 12px" onclick="deletarCliente(${c.id})">Apagar</button>
       </div>
-    </div>
-  `).join('');
+    </div>`).join('');
 }
 
-function activateClient(id) {
-  document.getElementById('clientSelect').value = id;
-  selectClient(id);
-  showPage('dna');
-}
+function activateClient(id) { document.getElementById('clientSelect').value = id; selectClient(id); showPage('dna'); }
 
 async function criarCliente() {
   const name = document.getElementById('nc_nome').value.trim();
   const email = document.getElementById('nc_email').value.trim();
   if (!name || !email) { alert('Nome e email são obrigatórios'); return; }
   try {
-    await fetch(API + '/api/clients', {
-      method: 'POST',
-      headers: {'Content-Type':'application/json'},
-      body: JSON.stringify({ name, email, channel_name: document.getElementById('nc_canal').value, niche: document.getElementById('nc_nicho').value })
-    });
+    await fetch(API + '/api/clients', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ name, email, channel_name: document.getElementById('nc_canal').value, niche: document.getElementById('nc_nicho').value }) });
     closeModal('modalNovoCliente');
     ['nc_nome','nc_email','nc_canal','nc_nicho'].forEach(id => document.getElementById(id).value = '');
     await loadClientes();
@@ -392,19 +336,7 @@ async function loadDNA() {
 async function saveDNA() {
   if (!currentClient) { alert('Selecione um cliente primeiro'); return; }
   try {
-    await fetch(API + '/api/clients/' + currentClient.id + '/dna', {
-      method: 'POST',
-      headers: {'Content-Type':'application/json'},
-      body: JSON.stringify({
-        tone: document.getElementById('dna_tone').value,
-        target_audience: document.getElementById('dna_audience').value,
-        content_pillars: document.getElementById('dna_pillars').value,
-        brand_voice: document.getElementById('dna_voice').value,
-        competitors: document.getElementById('dna_competitors').value,
-        keywords: document.getElementById('dna_keywords').value,
-        extra_notes: document.getElementById('dna_notes').value
-      })
-    });
+    await fetch(API + '/api/clients/' + currentClient.id + '/dna', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ tone: document.getElementById('dna_tone').value, target_audience: document.getElementById('dna_audience').value, content_pillars: document.getElementById('dna_pillars').value, brand_voice: document.getElementById('dna_voice').value, competitors: document.getElementById('dna_competitors').value, keywords: document.getElementById('dna_keywords').value, extra_notes: document.getElementById('dna_notes').value }) });
     alert('DNA salvo com sucesso!');
   } catch(e) { alert('Erro: ' + e.message); }
 }
@@ -413,49 +345,33 @@ async function gerarConteudo() {
   const tema = document.getElementById('gen_tema').value.trim();
   if (!tema) { alert('Informe o tema do vídeo'); return; }
   const autor = document.getElementById('gen_autor').value.trim();
-
   document.getElementById('btnGerar').disabled = true;
   document.getElementById('loadingGerador').classList.add('show');
   document.getElementById('resultadoGerador').style.display = 'none';
-
-  const msgs = ['Gerando títulos SEO...','Criando descrição...','Montando capítulos e tags...','Elaborando email...','Criando briefing de thumbnail...'];
+  const msgs = ['Gerando títulos SEO...','Criando descrição...','Montando capítulos e tags...','Elaborando email...','Criando roteiro em primeira pessoa...'];
   let mi = 0;
   const lt = setInterval(() => { document.getElementById('loadingText').textContent = msgs[++mi % msgs.length]; }, 2500);
-
-  const prompt = `Tema do video: "${tema}"\nApresentador/canal: "${autor || 'não informado'}"\n\nGere em JSON sem markdown:\n{\n"titulos":"5 titulos SEO numerados com emojis",\n"descricao":"descricao humanizada primeira pessoa 200-300 palavras com [LINK DO VIDEO]",\n"capitulos":"6-8 capitulos com timestamps 00:00",\n"tags":"tags csv max 500 chars",\n"email_titulo":"titulo email com emojis",\n"email_subtitulo":"subtitulo email",\n"email_corpo":"email completo com [LINK DO VIDEO]",\n"thumb_briefing":"briefing visual detalhado",\n"thumb_prompt":"prompt midjourney ingles paleta #fe7b03 #000000 @img1 --ar 16:9 --style raw"\n}`;
-
+  const prompt = `Tema do video: "${tema}"\nApresentador/canal: "${autor || 'não informado'}"\n\nGere em JSON sem markdown:\n{\n"titulos":"5 titulos SEO numerados com emojis",\n"descricao":"descricao humanizada primeira pessoa 200-300 palavras com [LINK DO VIDEO]",\n"capitulos":"6-8 capitulos com timestamps 00:00",\n"tags":"tags csv max 500 chars",\n"email_titulo":"titulo email com emojis",\n"email_subtitulo":"subtitulo email",\n"email_corpo":"email completo com [LINK DO VIDEO]",\n"thumb_briefing":"briefing visual detalhado",\n"thumb_prompt":"prompt midjourney ingles paleta #fe7b03 #000000 @img1 --ar 16:9 --style raw",\n"roteiro":"roteiro completo em primeira pessoa tom conversacional incluindo gancho de abertura desenvolvimento dos pontos principais com exemplos praticos e CTA final minimo 400 palavras"\n}`;
   try {
-    const r = await fetch(API + '/api/generate', {
-      method: 'POST',
-      headers: {'Content-Type':'application/json'},
-      body: JSON.stringify({ messages: [{ role:'user', content: prompt }] })
-    });
+    const r = await fetch(API + '/api/generate', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ messages: [{ role:'user', content: prompt }] }) });
     clearInterval(lt);
     const data = await r.json();
     const text = data.content[0].text.replace(/```json|```/g,'').trim();
     const json = JSON.parse(text);
-
     document.getElementById('res_titulos').textContent = json.titulos;
     document.getElementById('res_descricao').textContent = json.descricao;
     document.getElementById('res_capitulos').textContent = json.capitulos;
-
     const tags = json.tags.split(',').map(t => t.trim()).filter(Boolean);
     document.getElementById('res_tags_visual').innerHTML = tags.map(t => `<span class="tag">${t}</span>`).join('');
     document.getElementById('res_tags_raw').textContent = json.tags;
-
     const emailFull = `TÍTULO: ${json.email_titulo}\nSUBTÍTULO: ${json.email_subtitulo}\n\n${json.email_corpo}`;
     document.getElementById('res_email').textContent = emailFull;
     document.getElementById('res_thumb_brief').textContent = json.thumb_briefing;
     document.getElementById('res_thumb_prompt').textContent = json.thumb_prompt;
-
-    lastGenerated = { video_topic: tema, titles: json.titulos, description: json.descricao, chapters: json.capitulos, tags: json.tags, email_content: emailFull, thumb_brief: json.thumb_briefing, thumb_prompt: json.thumb_prompt };
-
+    document.getElementById('res_roteiro').textContent = json.roteiro;
+    lastGenerated = { video_topic: tema, titles: json.titulos, description: json.descricao, chapters: json.capitulos, tags: json.tags, email_content: emailFull, thumb_brief: json.thumb_briefing, thumb_prompt: json.thumb_prompt, roteiro: json.roteiro };
     document.getElementById('resultadoGerador').style.display = 'block';
-  } catch(e) {
-    clearInterval(lt);
-    alert('Erro ao gerar: ' + e.message);
-  }
-
+  } catch(e) { clearInterval(lt); alert('Erro ao gerar: ' + e.message); }
   document.getElementById('btnGerar').disabled = false;
   document.getElementById('loadingGerador').classList.remove('show');
 }
@@ -464,48 +380,19 @@ async function salvarConteudo() {
   if (!currentClient) { alert('Selecione um cliente para salvar'); return; }
   if (!lastGenerated) return;
   try {
-    await fetch(API + '/api/clients/' + currentClient.id + '/content', {
-      method: 'POST',
-      headers: {'Content-Type':'application/json'},
-      body: JSON.stringify(lastGenerated)
-    });
+    await fetch(API + '/api/clients/' + currentClient.id + '/content', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(lastGenerated) });
     alert('Salvo no histórico!');
   } catch(e) { alert('Erro: ' + e.message); }
 }
 
 async function loadTracker() {
-  if (!currentClient) {
-    document.getElementById('listaTracker').innerHTML = '<div class="empty-state"><div class="empty-icon">✧</div><div class="empty-text">Selecione um cliente para ver as pautas</div></div>';
-    return;
-  }
+  if (!currentClient) { document.getElementById('listaTracker').innerHTML = '<div class="empty-state"><div class="empty-icon">✧</div><div class="empty-text">Selecione um cliente</div></div>'; return; }
   try {
     const r = await fetch(API + '/api/clients/' + currentClient.id + '/tracker');
     const items = await r.json();
     const el = document.getElementById('listaTracker');
-    if (!items.length) {
-      el.innerHTML = '<div class="empty-state"><div class="empty-icon">✧</div><div class="empty-text">Nenhuma pauta ainda</div></div>';
-      return;
-    }
-    el.innerHTML = items.map(i => `
-      <div class="tracker-item">
-        <div class="tracker-title">${i.title}</div>
-        <div class="tracker-meta">
-          <span class="status-badge status-${i.status}">${i.status}</span>
-          ${i.niche ? `<span>${i.niche}</span>` : ''}
-          ${i.search_volume ? `<span>~${i.search_volume.toLocaleString()} buscas/mês</span>` : ''}
-          ${i.competition ? `<span>Concorrência ${i.competition}</span>` : ''}
-        </div>
-        ${i.suggested_angle ? `<div style="font-size:13px;color:var(--muted);margin-top:8px">${i.suggested_angle}</div>` : ''}
-        <div style="display:flex;gap:8px;margin-top:10px">
-          <select onchange="updateStatus(${i.id},this.value)" style="font-size:12px;padding:5px 8px;height:auto;width:auto">
-            <option ${i.status==='sugerido'?'selected':''} value="sugerido">Sugerido</option>
-            <option ${i.status==='producao'?'selected':''} value="producao">Em produção</option>
-            <option ${i.status==='publicado'?'selected':''} value="publicado">Publicado</option>
-          </select>
-          <button class="btn btn-danger" style="font-size:12px;padding:5px 10px" onclick="deletarPauta(${i.id})">Apagar</button>
-        </div>
-      </div>
-    `).join('');
+    if (!items.length) { el.innerHTML = '<div class="empty-state"><div class="empty-icon">✧</div><div class="empty-text">Nenhuma pauta ainda</div></div>'; return; }
+    el.innerHTML = items.map(i => `<div class="tracker-item"><div class="tracker-title">${i.title}</div><div class="tracker-meta"><span class="status-badge status-${i.status}">${i.status}</span>${i.niche?`<span>${i.niche}</span>`:''}</div><div style="display:flex;gap:8px;margin-top:10px"><select onchange="updateStatus(${i.id},this.value)" style="font-size:12px;padding:5px 8px;height:auto;width:auto"><option ${i.status==='sugerido'?'selected':''} value="sugerido">Sugerido</option><option ${i.status==='producao'?'selected':''} value="producao">Em produção</option><option ${i.status==='publicado'?'selected':''} value="publicado">Publicado</option></select><button class="btn btn-danger" style="font-size:12px;padding:5px 10px" onclick="deletarPauta(${i.id})">Apagar</button></div></div>`).join('');
   } catch(e) {}
 }
 
@@ -514,108 +401,53 @@ async function criarPauta() {
   const title = document.getElementById('np_titulo').value.trim();
   if (!title) { alert('Título obrigatório'); return; }
   try {
-    await fetch(API + '/api/clients/' + currentClient.id + '/tracker', {
-      method: 'POST',
-      headers: {'Content-Type':'application/json'},
-      body: JSON.stringify({
-        title,
-        niche: document.getElementById('np_nicho').value,
-        suggested_angle: document.getElementById('np_angulo').value,
-        search_volume: document.getElementById('np_volume').value || 0,
-        competition: document.getElementById('np_concorrencia').value
-      })
-    });
+    await fetch(API + '/api/clients/' + currentClient.id + '/tracker', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ title, niche: document.getElementById('np_nicho').value, suggested_angle: document.getElementById('np_angulo').value, search_volume: document.getElementById('np_volume').value||0, competition: document.getElementById('np_concorrencia').value }) });
     closeModal('modalNovaPauta');
     ['np_titulo','np_nicho','np_angulo','np_volume'].forEach(id => document.getElementById(id).value = '');
     await loadTracker();
   } catch(e) { alert('Erro: ' + e.message); }
 }
 
-async function updateStatus(id, status) {
-  await fetch(API + '/api/tracker/' + id, { method: 'DELETE' });
-  loadTracker();
-}
-
-async function deletarPauta(id) {
-  if (!confirm('Apagar esta pauta?')) return;
-  await fetch(API + '/api/tracker/' + id, { method: 'DELETE' });
-  await loadTracker();
-}
+async function updateStatus(id, status) { await fetch(API + '/api/tracker/' + id, { method:'DELETE' }); loadTracker(); }
+async function deletarPauta(id) { if (!confirm('Apagar esta pauta?')) return; await fetch(API + '/api/tracker/' + id, { method:'DELETE' }); await loadTracker(); }
 
 async function sugerirPautas() {
   if (!currentClient) { alert('Selecione um cliente primeiro'); return; }
   document.getElementById('loadingTracker').classList.add('show');
   document.getElementById('btnSugerirPautas').disabled = true;
-
   try {
     const dnaR = await fetch(API + '/api/clients/' + currentClient.id + '/dna');
     const dna = await dnaR.json();
-
-    const prompt = `Cliente: ${currentClient.name}, nicho: ${currentClient.niche || dna.keywords || 'geral'}.\nPilares: ${dna.content_pillars || ''}\nPalavras-chave: ${dna.keywords || ''}\n\nSugira 5 pautas de vídeo com alto potencial de SEO. Retorne JSON:\n{"pautas":[{"title":"...","suggested_angle":"...","search_volume":1000,"competition":"media"}]}`;
-
-    const r = await fetch(API + '/api/generate', {
-      method: 'POST',
-      headers: {'Content-Type':'application/json'},
-      body: JSON.stringify({ messages: [{ role:'user', content: prompt }] })
-    });
+    const prompt = `Cliente: ${currentClient.name}, nicho: ${currentClient.niche||dna.keywords||'geral'}.\nPilares: ${dna.content_pillars||''}\nPalavras-chave: ${dna.keywords||''}\n\nSugira 5 pautas de vídeo com alto potencial de SEO. Retorne JSON:\n{"pautas":[{"title":"...","suggested_angle":"...","search_volume":1000,"competition":"media"}]}`;
+    const r = await fetch(API + '/api/generate', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ messages: [{ role:'user', content: prompt }] }) });
     const data = await r.json();
-    const text = data.content[0].text.replace(/```json|```/g,'').trim();
-    const json = JSON.parse(text);
-
-    for (const pauta of json.pautas) {
-      await fetch(API + '/api/clients/' + currentClient.id + '/tracker', {
-        method: 'POST',
-        headers: {'Content-Type':'application/json'},
-        body: JSON.stringify({ ...pauta, niche: currentClient.niche || '' })
-      });
-    }
+    const json = JSON.parse(data.content[0].text.replace(/```json|```/g,'').trim());
+    for (const pauta of json.pautas) { await fetch(API + '/api/clients/' + currentClient.id + '/tracker', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({...pauta, niche: currentClient.niche||''}) }); }
     await loadTracker();
   } catch(e) { alert('Erro: ' + e.message); }
-
   document.getElementById('loadingTracker').classList.remove('show');
   document.getElementById('btnSugerirPautas').disabled = false;
 }
 
 async function loadHistorico() {
-  if (!currentClient) {
-    document.getElementById('listaHistorico').innerHTML = '<div class="empty-state"><div class="empty-icon">▣</div><div class="empty-text">Selecione um cliente</div></div>';
-    return;
-  }
+  if (!currentClient) { document.getElementById('listaHistorico').innerHTML = '<div class="empty-state"><div class="empty-icon">▣</div><div class="empty-text">Selecione um cliente</div></div>'; return; }
   try {
     const r = await fetch(API + '/api/clients/' + currentClient.id + '/content');
     const items = await r.json();
     const el = document.getElementById('listaHistorico');
-    if (!items.length) {
-      el.innerHTML = '<div class="empty-state"><div class="empty-icon">▣</div><div class="empty-text">Nenhum conteúdo gerado ainda</div></div>';
-      return;
-    }
-    el.innerHTML = items.map(i => `
-      <div class="history-item" onclick="expandHistory(this, ${JSON.stringify(i).replace(/"/g,'&quot;')})">
-        <div class="history-topic">${i.video_topic}</div>
-        <div class="history-date">${new Date(i.created_at).toLocaleDateString('pt-BR', {day:'2-digit',month:'short',year:'numeric'})}</div>
-        <div class="history-expand" style="display:none;margin-top:12px">
-          <div class="section-label" style="margin-top:8px">Títulos</div>
-          <div style="font-size:13px;white-space:pre-wrap">${i.titles || ''}</div>
-        </div>
-      </div>
-    `).join('');
+    if (!items.length) { el.innerHTML = '<div class="empty-state"><div class="empty-icon">▣</div><div class="empty-text">Nenhum conteúdo gerado ainda</div></div>'; return; }
+    el.innerHTML = items.map(i => `<div class="history-item" onclick="expandHistory(this)"><div class="history-topic">${i.video_topic}</div><div class="history-date">${new Date(i.created_at).toLocaleDateString('pt-BR',{day:'2-digit',month:'short',year:'numeric'})}</div></div>`).join('');
   } catch(e) {}
 }
 
-function expandHistory(el, item) {
-  const exp = el.querySelector('.history-expand');
-  exp.style.display = exp.style.display === 'none' ? 'block' : 'none';
-}
+function expandHistory(el) { }
 
 async function loadDashboard() {
   await loadClients();
   document.getElementById('statClientes').textContent = clients.length;
   if (currentClient) {
     try {
-      const [cr, tr] = await Promise.all([
-        fetch(API + '/api/clients/' + currentClient.id + '/content').then(r => r.json()),
-        fetch(API + '/api/clients/' + currentClient.id + '/tracker').then(r => r.json())
-      ]);
+      const [cr, tr] = await Promise.all([fetch(API+'/api/clients/'+currentClient.id+'/content').then(r=>r.json()), fetch(API+'/api/clients/'+currentClient.id+'/tracker').then(r=>r.json())]);
       document.getElementById('statGeracoes').textContent = cr.length;
       document.getElementById('statPautas').textContent = tr.length;
     } catch(e) {}
@@ -624,17 +456,13 @@ async function loadDashboard() {
 
 function copiar(id, btn) {
   const el = document.getElementById(id);
-  navigator.clipboard.writeText(el.innerText || el.textContent).then(() => {
-    btn.textContent = 'Copiado!';
-    btn.style.borderColor = '#3b6d11';
-    btn.style.color = '#7bc142';
-    setTimeout(() => { btn.textContent = 'Copiar'; btn.style.borderColor = ''; btn.style.color = ''; }, 2000);
+  navigator.clipboard.writeText(el.innerText||el.textContent).then(() => {
+    btn.textContent = 'Copiado!'; btn.style.borderColor = '#3b6d11'; btn.style.color = '#7bc142';
+    setTimeout(() => { btn.textContent = 'Copiar'; btn.style.borderColor=''; btn.style.color=''; }, 2000);
   });
 }
 
-function salvarConfig() {
-  alert('Para configurar a API Key, adicione a variável de ambiente ANTHROPIC_API_KEY no EasyPanel em Variáveis de Ambiente.');
-}
+function salvarConfig() { alert('Para configurar a API Key, adicione a variável de ambiente ANTHROPIC_API_KEY no EasyPanel em Variáveis de Ambiente.'); }
 
 // Init
 loadClients().then(() => loadDashboard());
