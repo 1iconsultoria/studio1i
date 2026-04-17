@@ -108,173 +108,161 @@ select option{background:var(--surface2)}
 </head>
 <body>
 <div class="app">
+
+  <!-- SIDEBAR -->
   <div class="sidebar">
     <div class="logo"><div class="logo-main">Studio 1i</div><div class="logo-sub">Plataforma de Conteudo</div></div>
     <nav class="nav">
       <div class="nav-section">Principal</div>
-      <div class="nav-item active" onclick="showPage('dashboard',this)"><span class="nav-icon">â</span> Dashboard</div>
-      <div class="nav-item" onclick="showPage('clientes',this)"><span class="nav-icon">â¦</span> Clientes</div>
-      <div class="nav-section">EstratÃ©gia</div>
-      <div class="nav-item" onclick="showPage('dna',this)"><span class="nav-icon">â¸</span> DNA do Cliente</div>
-      <div class="nav-item" onclick="showPage('youtube',this)"><span class="nav-icon">â¶</span> YouTube Insights</div>
-      <div class="nav-item" onclick="showPage('benchmark',this)"><span class="nav-icon">â</span> Benchmark Global</div>
-      <div class="nav-section">ProduÃ§Ã£o</div>
-      <div class="nav-item" onclick="showPage('gerador',this)"><span class="nav-icon">â¦</span> Gerador</div>
-      <div class="nav-item" onclick="showPage('tracker',this)"><span class="nav-icon">â§</span> Tracker</div>
-      <div class="nav-item" onclick="showPage('historico',this)"><span class="nav-icon">â£</span> HistÃ³rico</div>
+      <div class="nav-item active" onclick="showPage('dashboard',this)"><span class="nav-icon">⊕</span> Dashboard</div>
+      <div class="nav-item" onclick="showPage('clientes',this)"><span class="nav-icon">✦</span> Clientes</div>
+      <div class="nav-section">Estratégia</div>
+      <div class="nav-item" onclick="showPage('dna',this)"><span class="nav-icon">✸</span> DNA do Cliente</div>
+      <div class="nav-item" onclick="showPage('youtube',this)"><span class="nav-icon">▶</span> YouTube Insights</div>
+      <div class="nav-item" onclick="showPage('benchmark',this)"><span class="nav-icon">◈</span> Benchmark Global</div>
+      <div class="nav-section">Produção</div>
+      <div class="nav-item" onclick="showPage('gerador',this)"><span class="nav-icon">✦</span> Gerador</div>
+      <div class="nav-item" onclick="showPage('tracker',this)"><span class="nav-icon">✧</span> Tracker</div>
+      <div class="nav-item" onclick="showPage('historico',this)"><span class="nav-icon">▣</span> Histórico</div>
       <div class="nav-section">Sistema</div>
-      <div class="nav-item" onclick="showPage('config',this)"><span class="nav-icon">â</span> Config</div>
+      <div class="nav-item" onclick="showPage('config',this)"><span class="nav-icon">✉</span> Config</div>
     </nav>
     <div class="client-selector">
       <label style="font-size:10px;color:var(--muted);letter-spacing:1px;text-transform:uppercase">Cliente ativo</label>
       <select class="client-select" id="clientSelect" onchange="selectClient(this.value)"><option value="">Selecione...</option></select>
     </div>
   </div>
+
   <div class="main">
   <div class="page active" id="page-dashboard">
     <div class="page-header"><div class="page-title">Dashboard <span>1i</span></div><span id="configWarning"></span></div>
-    <div class="grid-4" id="dashStats">
-      <div class="stat-card"><div class="stat-num" id="statClientes">0</div><div class="stat-label">Clientes</div></div>
-      <div class="stat-card"><div class="stat-num" id="statGeracoes">0</div><div class="stat-label">ConteÃºdos Gerados</div></div>
-      <div class="stat-card"><div class="stat-num" id="statPautas">0</div><div class="stat-label">Pautas no Tracker</div></div>
-      <div class="stat-card"><div class="stat-num" id="statYT">â</div><div class="stat-label">Subs Canal Ativo</div></div>
-    </div>
-    <div class="card" style="margin-top:1.5rem"><div class="card-title">AÃ§Ãµes RÃ¡pidas</div><div style="display:flex;gap:10px;flex-wrap:wrap"><button class="btn btn-primary" onclick="showPage('gerador',null)">â¦ Gerar ConteÃºdo</button><button class="btn btn-outline" onclick="showPage('clientes',null)">+ Novo Cliente</button><button class="btn btn-outline" onclick="showPage('youtube',null)">â¶ Analisar Canal</button><button class="btn btn-outline" onclick="showPage('benchmark',null)">â Benchmark Global</button></div></div>
+    <div class="grid-4"><div class="stat-card"><div class="stat-num" id="statClientes">0</div><div class="stat-label">Clientes</div></div><div class="stat-card"><div class="stat-num" id="statGeracoes">0</div><div class="stat-label">Conteúdos Gerados</div></div><div class="stat-card"><div class="stat-num" id="statPautas">0</div><div class="stat-label">Pautas no Tracker</div></div><div class="stat-card"><div class="stat-num" id="statYT">—</div><div class="stat-label">Subs Canal Ativo</div></div></div>
+    <div class="card" style="margin-top:1.5rem"><div class="card-title">Ações Rápidas</div><div style="display:flex;gap:10px;flex-wrap:wrap"><button class="btn btn-primary" onclick="showPage('gerador',null)">✦ Gerar Conteúdo</button><button class="btn btn-outline" onclick="showPage('clientes',null)">+ Novo Cliente</button><button class="btn btn-outline" onclick="showPage('youtube',null)">▶ Analisar Canal</button><button class="btn btn-outline" onclick="showPage('benchmark',null)">◈ Benchmark Global</button></div></div>
     <div class="card" id="dashClientInfo" style="display:none"><div class="card-title">Cliente Ativo</div><div id="dashClientDetails"></div></div>
   </div>
   <div class="page" id="page-clientes">
     <div class="page-header"><div class="page-title">Clientes</div><button class="btn btn-primary" onclick="openModal('modalNovoCliente')">+ Novo Cliente</button></div>
-    <div id="listaClientes"><div class="empty-state"><div class="empty-icon">â¦</div><div class="empty-text">Nenhum cliente ainda</div></div></div>
+    <div id="listaClientes"></div>
   </div>
   <div class="page" id="page-dna">
     <div class="page-header"><div class="page-title">DNA do <span>Cliente</span></div><div style="display:flex;gap:8px" id="dnaActions"></div></div>
-    <div id="dnaNoClient" class="empty-state"><div class="empty-icon">â¸</div><div class="empty-text">Selecione um cliente para ver o DNA</div></div>
+    <div id="dnaNoClient" class="empty-state"><div class="empty-icon">✸</div><div class="empty-text">Selecione um cliente para ver o DNA</div></div>
     <div id="dnaViewMode" style="display:none">
-      <div class="grid-2"><div class="dna-view"><div class="dv-label">Tom de Voz</div><div class="dv-value" id="dv_tone">â</div></div><div class="dna-view"><div class="dv-label">PÃºblico-Alvo</div><div class="dv-value" id="dv_audience">â</div></div></div>
-      <div class="dna-view"><div class="dv-label">Pilares de ConteÃºdo</div><div class="dv-value" id="dv_pillars">â</div></div>
-      <div class="dna-view"><div class="dv-label">Voz da Marca</div><div class="dv-value" id="dv_voice">â</div></div>
-      <div class="grid-2"><div class="dna-view"><div class="dv-label">Concorrentes</div><div class="dv-value" id="dv_competitors">â</div></div><div class="dna-view"><div class="dv-label">Palavras-chave</div><div class="dv-value" id="dv_keywords">â</div></div></div>
-      <div class="dna-view"><div class="dv-label">Notas</div><div class="dv-value" id="dv_notes">â</div></div>
-      <div class="dna-view" style="border:1px solid rgba(254,123,3,.2);background:rgba(254,123,3,.04)">
-        <div class="dv-label">ð YouTube API Key</div>
-        <div id="dv_yt_key_status" style="font-size:13px"></div>
-      </div>
+      <div class="grid-2"><div class="dna-view"><div class="dv-label">Tom de Voz</div><div class="dv-value" id="dv_tone">—</div></div><div class="dna-view"><div class="dv-label">Público-Alvo</div><div class="dv-value" id="dv_audience">—</div></div></div>
+      <div class="dna-view"><div class="dv-label">Pilares</div><div class="dv-value" id="dv_pillars">—</div></div>
+      <div class="dna-view"><div class="dv-label">Voz da Marca</div><div class="dv-value" id="dv_voice">—</div></div>
+      <div class="grid-2"><div class="dna-view"><div class="dv-label">Concorrentes</div><div class="dv-value" id="dv_competitors">—</div></div><div class="dna-view"><div class="dv-label">Keywords</div><div class="dv-value" id="dv_keywords">—</div></div></div>
+      <div class="dna-view"><div class="dv-label">Notas</div><div class="dv-value" id="dv_notes">—</div></div>
+      <div class="dna-view" style="border:1px solid rgba(254,123,3,.2);background:rgba(254,123,3,.04)"><div class="dv-label">🔑 YouTube API Key</div><div id="dv_yt_key_status" style="font-size:13px"></div></div>
       <div style="font-size:11px;color:var(--muted);margin-top:8px" id="dna_updated_at"></div>
     </div>
     <div id="dnaEditMode" style="display:none">
       <div class="card"><div class="card-title">Identidade e Tom</div>
-        <div class="grid-2"><div class="form-row"><label>Tom de voz</label><input id="dna_tone" placeholder="Ex: Educativo, descontraiÌdo..."></div><div class="form-row"><label>PÃºblico-alvo</label><input id="dna_audience" placeholder="Ex: Empreendedores 25-45 anos..."></div></div>
-        <div class="form-row"><label>Pilares de conteÃºdo</label><textarea id="dna_pillars" placeholder="Ex: Vendas, Marketing..."></textarea></div>
+        <div class="grid-2"><div class="form-row"><label>Tom de voz</label><input id="dna_tone" placeholder="Ex: Educativo, descontraído..."></div><div class="form-row"><label>Público-alvo</label><input id="dna_audience" placeholder="Ex: Empreendedores 25-45 anos..."></div></div>
+        <div class="form-row"><label>Pilares de conteúdo</label><textarea id="dna_pillars" placeholder="Ex: Vendas, Marketing..."></textarea></div>
         <div class="form-row"><label>Voz da marca</label><textarea id="dna_voice" placeholder="Descreva como o criador se comunica..."></textarea></div>
       </div>
-      <div class="card"><div class="card-title">EstratÃ©gia</div>
-        <div class="form-row"><label>Concorrentes principais</label><textarea id="dna_competitors" placeholder="Liste canais ou criadores similares..."></textarea></div>
-        <div class="form-row"><label>Palavras-chave do nicho</label><textarea id="dna_keywords" placeholder="Principais termos de busca..."></textarea></div>
-        <div class="form-row"><label>Notas adicionais</label><textarea id="dna_notes" placeholder="Qualquer informaÃ§Ã£o importante..."></textarea></div>
+      <div class="card"><div class="card-title">Estratégia</div>
+        <div class="form-row"><label>Concorrentes</label><textarea id="dna_competitors"></textarea></div>
+        <div class="form-row"><label>Palavras-chave</label><textarea id="dna_keywords"></textarea></div>
+        <div class="form-row"><label>Notas</label><textarea id="dna_notes"></textarea></div>
       </div>
-      <div class="card" style="border-color:rgba(254,123,3,.3)">
-        <div class="card-title">ð IntegraÃ§Ã£o YouTube</div>
-        <div class="alert alert-info" style="margin-bottom:1rem">A chave fica salva no banco por cliente. Obtenha em console.cloud.google.com â YouTube Data API v3</div>
+      <div class="card" style="border-color:rgba(254,123,3,.3)"><div class="card-title">🔑 Integração YouTube</div>
+        <div class="alert alert-info" style="margin-bottom:1rem">A chave fica salva no banco por cliente. console.cloud.google.com → YouTube Data API v3</div>
         <div class="grid-2">
-          <div class="form-row"><label>YouTube API Key</label><input id="dna_yt_key" type="password" placeholder="AIza..." autocomplete="off"><div style="font-size:11px;color:var(--muted);margin-top:4px">Cada cliente usa sua prÃ³pria chave â isola cotas e dados</div></div>
-          <div class="form-row"><label>Channel ID (UCxxxxxx)</label><input id="dna_channel_id" placeholder="UCxxxxxxxxxxxxxxxxxx"><div style="font-size:11px;color:var(--muted);margin-top:4px">YouTube Studio â ConfiguraÃ§Ãµes â Canal â AvanÃ§ado</div></div>
+          <div class="form-row"><label>YouTube API Key</label><input id="dna_yt_key" type="password" placeholder="AIza..." autocomplete="off"><div style="font-size:11px;color:var(--muted);margin-top:4px">Cada cliente usa sua própria chave</div></div>
+          <div class="form-row"><label>Channel ID (UCxxxxxx)</label><input id="dna_channel_id" placeholder="UCxxxxxxxxxxxxxxxxxx"><div style="font-size:11px;color:var(--muted);margin-top:4px">YouTube Studio → Configurações → Canal → Avançado</div></div>
         </div>
       </div>
-      <div style="display:flex;gap:8px"><button class="btn btn-primary" onclick="saveDNA()">ð¾ Salvar DNA</button><button class="btn btn-outline" onclick="cancelDNAEdit()">Cancelar</button></div>
+      <div style="display:flex;gap:8px"><button class="btn btn-primary" onclick="saveDNA()">💾 Salvar DNA</button><button class="btn btn-outline" onclick="cancelDNAEdit()">Cancelar</button></div>
     </div>
-    <div id="dnaNewCta" style="display:none">
-      <div class="card" style="text-align:center;padding:2.5rem">
-        <div style="font-size:40px;margin-bottom:12px;opacity:.5">â¸</div>
-        <div style="font-size:16px;font-weight:500;margin-bottom:8px">Nenhum DNA cadastrado ainda</div>
-        <div style="font-size:13px;color:var(--muted);margin-bottom:1.5rem">Defina identidade, tom, estratÃ©gia e YouTube API Key deste cliente.</div>
-        <button class="btn btn-primary" onclick="enterDNAEdit()">â¸ Criar DNA do Cliente</button>
-      </div>
-    </div>
+    <div id="dnaNewCta" style="display:none"><div class="card" style="text-align:center;padding:2.5rem">
+      <div style="font-size:40px;margin-bottom:12px;opacity:.5">✸</div>
+      <div style="font-size:16px;font-weight:500;margin-bottom:8px">Nenhum DNA cadastrado ainda</div>
+      <div style="font-size:13px;color:var(--muted);margin-bottom:1.5rem">Defina identidade, tom, estratégia e YouTube API Key deste cliente.</div>
+      <button class="btn btn-primary" onclick="enterDNAEdit()">✸ Criar DNA do Cliente</button>
+    </div></div>
   </div>
   <div class="page" id="page-youtube">
-    <div class="page-header"><div class="page-title">YouTube <span>Insights</span></div><button class="btn btn-primary" onclick="analyzeChannel()">â¶ Analisar Canal</button></div>
-    <div id="ytNoClient" class="empty-state"><div class="empty-icon">â¶</div><div class="empty-text">Selecione um cliente</div></div>
+    <div class="page-header"><div class="page-title">YouTube <span>Insights</span></div><button class="btn btn-primary" onclick="analyzeChannel()">▶ Analisar Canal</button></div>
+    <div id="ytNoClient" class="empty-state"><div class="empty-icon">▶</div><div class="empty-text">Selecione um cliente</div></div>
     <div id="ytNoKey" class="alert alert-warning" style="display:none"></div>
-    <div class="loading" id="loadingYT"><div class="spinner"></div><span id="loadingYTText">Buscando dados...</span></div>
-    <div id="ytResults" style="display:none">
-      <div class="grid-4" id="ytMetrics" style="margin-bottom:1rem"></div>
-      <div class="grid-2"><div class="card"><div class="card-title">Top VÃ­deos</div><div id="ytTopVideos"></div></div><div class="card"><div id="ytAIResults"><div class="loading show"><div class="spinner"></div><span>Gerando anÃ¡lise...</span></div></div></div></div>
+    <div class="loading" id="loadingYT"><div class="spinner"></div><span id="loadingYTText">Buscando...</span></div>
+    <div id="ytResults" style="display:none"><div class="grid-4" id="ytMetrics" style="margin-bottom:1rem"></div>
+      <div class="grid-2"><div class="card"><div class="card-title">Top Vídeos</div><div id="ytTopVideos"></div></div><div class="card"><div id="ytAIResults"><div class="loading show"><div class="spinner"></div><span>Analisando...</span></div></div></div></div>
     </div>
   </div>
   <div class="page" id="page-benchmark">
     <div class="page-header"><div class="page-title">Benchmark <span>Global</span></div></div>
-    <div class="alert alert-info">â AnÃ¡lise global do nicho via YouTube API + IA. Resultados sempre em inglÃªs.</div>
+    <div class="alert alert-info">◈ Análise global do nicho via YouTube API + IA. Resultados sempre em inglês.</div>
     <div class="card"><div class="card-title">Configurar Pesquisa</div>
-      <div class="grid-2"><div class="form-row"><label>Nicho *</label><input id="bm_niche" placeholder="Ex: Amazon FBA, Personal Finance..."></div><div class="form-row"><label>Keywords adicionais</label><input id="bm_keywords" placeholder="Ex: beginner, 2024..."></div></div>
-      <button class="btn btn-primary btn-full" onclick="runBenchmark()">â EXECUTAR BENCHMARK GLOBAL</button>
-      <div class="loading" id="loadingBench" style="margin-top:1rem"><div class="spinner"></div><span>Analisando com IA...</span></div>
+      <div class="grid-2"><div class="form-row"><label>Nicho *</label><input id="bm_niche" placeholder="Ex: Amazon FBA..."></div><div class="form-row"><label>Keywords adicionais</label><input id="bm_keywords" placeholder="Ex: beginner, 2024..."></div></div>
+      <button class="btn btn-primary btn-full" onclick="runBenchmark()">◈ EXECUTAR BENCHMARK GLOBAL</button>
+      <div class="loading" id="loadingBench" style="margin-top:1rem"><div class="spinner"></div><span>Analisando...</span></div>
     </div>
     <div id="benchResults" style="display:none"></div>
   </div>
   <div class="page" id="page-gerador">
-    <div class="page-title" style="margin-bottom:1.5rem">Gerador de <span>ConteÃºdo</span></div>
-    <div class="card"><div class="card-title">Sobre o vÃ­deo</div>
+    <div class="page-title" style="margin-bottom:1.5rem">Gerador de <span>Conteúdo</span></div>
+    <div class="card"><div class="card-title">Sobre o vídeo</div>
       <div class="form-row"><label>Tema ou assunto</label><textarea id="gen_tema" rows="3" placeholder="Descreva o tema..."></textarea></div>
       <div class="grid-2"><div class="form-row"><label>Apresentador / canal</label><input id="gen_autor" placeholder="Ex: Ariadne - Canal Amazon"></div><div class="form-row"><label>Nicho</label><input id="gen_niche" placeholder="Ex: Amazon..."></div></div>
-      <button class="btn btn-primary btn-full" id="btnGerar" onclick="gerarConteudo()">GERAR CONTEÃDO COMPLETO</button>
+      <button class="btn btn-primary btn-full" id="btnGerar" onclick="gerarConteudo()">GERAR CONTEÚD O COMPLETO</button>
       <div class="loading" id="loadingGerador"><div class="spinner"></div><span id="loadingText">Gerando...</span></div>
     </div>
     <div id="resultadoGerador" style="display:none">
-      <div class="card"><div class="section-label">TÃ­tulos SEO</div><div class="content-text" id="res_titulos"></div><button class="copy-btn" onclick="copiar('res_titulos',this)">Copiar</button></div>
-      <div class="card"><div class="section-label">DescriÃ§Ã£o</div><div class="content-text" id="res_descricao"></div><button class="copy-btn" onclick="copiar('res_descricao',this)">Copiar</button></div>
-      <div class="card"><div class="section-label">CapÃ­tulos</div><div class="content-text" id="res_capitulos"></div><button class="copy-btn" onclick="copiar('res_capitulos',this)">Copiar</button></div>
+      <div class="card"><div class="section-label">Títulos SEO</div><div class="content-text" id="res_titulos"></div><button class="copy-btn" onclick="copiar('res_titulos',this)">Copiar</button></div>
+      <div class="card"><div class="section-label">Descrição</div><div class="content-text" id="res_descricao"></div><button class="copy-btn" onclick="copiar('res_descricao',this)">Copiar</button></div>
+      <div class="card"><div class="section-label">Capítulos</div><div class="content-text" id="res_capitulos"></div><button class="copy-btn" onclick="copiar('res_capitulos',this)">Copiar</button></div>
       <div class="card"><div class="section-label">Tags</div><div id="res_tags_visual"></div><div id="res_tags_raw" style="display:none"></div><button class="copy-btn" onclick="copiar('res_tags_raw',this)">Copiar tags</button></div>
       <div class="card"><div class="section-label">E-mail Marketing</div><div class="content-text" id="res_email"></div><button class="copy-btn" onclick="copiar('res_email',this)">Copiar</button></div>
       <div class="card"><div class="section-label">Briefing Thumbnail</div><div class="content-text" id="res_thumb_brief"></div></div>
-      <div class="card"><div class="section-label">Prompt Midjourney</div><div class="content-text" id="res_thumb_prompt" style="font-family:monospace;font-size:12px;background:var(--dark);padding:12px;border-radius:8px;border:1px solid var(--border)"></div><button class="copy-btn" onclick="copiar('res_thumb_prompt',this)">Copiar prompt</button></div>
-      <div class="card" style="border-color:var(--orange);border-width:2px"><div class="section-label">ð¥ Roteiro em Primeira Pessoa</div><div class="content-text" id="res_roteiro" style="line-height:1.9;font-size:15px"></div><button class="copy-btn" onclick="copiar('res_roteiro',this)">Copiar roteiro</button></div>
-      <button class="btn btn-primary" onclick="salvarConteudo()">Salvar no HistÃ³rico</button>
+      <div class="card"><div class="section-label">Prompt Midjourney</div><div class="content-text" id="res_thumb_prompt" style="font-family:monospace;font-size:12px;background:var(--dark);padding:12px;border-radius:8px"></div><button class="copy-btn" onclick="copiar('res_thumb_prompt',this)">Copiar</button></div>
+      <div class="card" style="border-color:var(--orange);border-width:2px"><div class="section-label">🎥 Roteiro em Primeira Pessoa</div><div class="content-text" id="res_roteiro" style="line-height:1.9;font-size:15px"></div><button class="copy-btn" onclick="copiar('res_roteiro',this)">Copiar roteiro</button></div>
+      <button class="btn btn-primary" onclick="salvarConteudo()">Salvar no Histórico</button>
     </div>
   </div>
   <div class="page" id="page-tracker">
-    <div class="page-header"><div class="page-title">Tracker de <span>Pautas</span></div><div style="display:flex;gap:8px"><button class="btn btn-primary" onclick="openModal('modalNovaPauta')">+ Nova Pauta</button><button class="btn btn-outline" id="btnSugerirPautas" onclick="sugerirPautas()">â¦ Sugerir com IA</button></div></div>
-    <div class="loading" id="loadingTracker"><div class="spinner"></div><span>Sugerindo pautas...</span></div>
-    <div id="listaTracker"><div class="empty-state"><div class="empty-icon">â§</div><div class="empty-text">Nenhuma pauta ainda</div></div></div>
+    <div class="page-header"><div class="page-title">Tracker de <span>Pautas</span></div><div style="display:flex;gap:8px"><button class="btn btn-primary" onclick="openModal('modalNovaPauta')">+ Nova Pauta</button><button class="btn btn-outline" id="btnSugerirPautas" onclick="sugerirPautas()">✦ Sugerir com IA</button></div></div>
+    <div class="loading" id="loadingTracker"><div class="spinner"></div><span>Sugerindo...</span></div>
+    <div id="listaTracker"></div>
   </div>
-  <div class="page" id="page-historico">
-    <div class="page-title" style="margin-bottom:1.5rem">HistÃ³rico</div>
-    <div id="listaHistorico"><div class="empty-state"><div class="empty-icon">â£</div><div class="empty-text">Nenhum conteÃºdo gerado ainda</div></div></div>
-  </div>
+  <div class="page" id="page-historico"><div class="page-title" style="margin-bottom:1.5rem">Histórico</div><div id="listaHistorico"></div></div>
   <div class="page" id="page-config">
-    <div class="page-title" style="margin-bottom:1.5rem">ConfiguraÃ§Ãµes</div>
-    <div class="card"><div class="card-title">Status das IntegraÃ§Ãµes</div><div id="configStatus" style="display:flex;gap:12px;flex-wrap:wrap"></div></div>
+    <div class="page-title" style="margin-bottom:1.5rem">Configurações</div>
+    <div class="card"><div class="card-title">Status</div><div id="configStatus" style="display:flex;gap:12px;flex-wrap:wrap"></div></div>
     <div class="card"><div class="card-title">Modelo de API Keys</div>
-      <div class="alert alert-info" style="margin-bottom:1rem">ð As chaves de API sÃ£o configuradas por cliente no DNA, nunca expostas no cÃ³digo.</div>
+      <div class="alert alert-info" style="margin-bottom:1rem">🔒 Chaves configuradas por cliente no DNA.</div>
       <div class="grid-2">
-        <div class="dna-view"><div class="dv-label">ANTHROPIC_API_KEY â Global</div><div class="dv-value" style="font-size:12px">EasyPanel â Ambiente. Compartilhada por todos os clientes.</div></div>
-        <div class="dna-view" style="border-color:rgba(254,123,3,.3)"><div class="dv-label">ð YouTube API Key â Por Cliente</div><div class="dv-value" style="font-size:12px">Configure no DNA do Cliente â IntegraÃ§Ã£o YouTube. Cada cliente usa sua prÃ³pria chave.</div></div>
-        <div class="dna-view"><div class="dv-label">YOUTUBE_API_KEY â Global (Fallback)</div><div class="dv-value" style="font-size:12px">Opcional: EasyPanel â Ambiente. Usado se o cliente nÃ£o tiver chave prÃ³pria.</div></div>
-        <div class="dna-view"><div class="dv-label">Como obter YouTube API Key</div><div class="dv-value" style="font-size:12px">console.cloud.google.com â APIs â YouTube Data API v3 â Credenciais</div></div>
+        <div class="dna-view"><div class="dv-label">ANTHROPIC_API_KEY</div><div class="dv-value" style="font-size:12px">EasyPanel → Ambiente. Global para todos os clientes.</div></div>
+        <div class="dna-view" style="border-color:rgba(254,123,3,.3)"><div class="dv-label">🔑 YouTube API Key (Por Cliente)</div><div class="dv-value" style="font-size:12px">Configure no DNA do Cliente → Integração YouTube.</div></div>
+        <div class="dna-view"><div class="dv-label">YOUTUBE_API_KEY (Fallback Global)</div><div class="dv-value" style="font-size:12px">Opcional: EasyPanel → Ambiente.</div></div>
+        <div class="dna-view"><div class="dv-label">Como obter YouTube API Key</div><div class="dv-value" style="font-size:12px">console.cloud.google.com → APIs → YouTube Data API v3 → Credenciais</div></div>
       </div>
     </div>
   </div>
   </div>
 </div>
 <div class="modal" id="modalNovoCliente"><div class="modal-box">
-  <div class="modal-title">Novo Cliente <button class="btn btn-ghost" onclick="closeModal('modalNovoCliente')" style="font-size:18px">â</button></div>
-  <div class="grid-2"><div class="form-row"><label>Nome *</label><input id="nc_nome" placeholder="Nome completo"></div><div class="form-row"><label>Email *</label><input id="nc_email" placeholder="email@exemplo.com" type="email"></div></div>
-  <div class="grid-2"><div class="form-row"><label>Nome do Canal</label><input id="nc_canal" placeholder="Nome do canal"></div><div class="form-row"><label>Nicho</label><input id="nc_nicho" placeholder="Ex: Amazon..."></div></div>
-  <div class="btn-row"><button class="btn btn-primary" onclick="criarCliente()">Criar Cliente</button><button class="btn btn-outline" onclick="closeModal('modalNovoCliente')">Cancelar</button></div>
+  <div class="modal-title">Novo Cliente <button class="btn btn-ghost" onclick="closeModal('modalNovoCliente')" style="font-size:18px">✕</button></div>
+  <div class="grid-2"><div class="form-row"><label>Nome *</label><input id="nc_nome"></div><div class="form-row"><label>Email *</label><input id="nc_email" type="email"></div></div>
+  <div class="grid-2"><div class="form-row"><label>Canal YouTube</label><input id="nc_canal" placeholder="Nome do canal"></div><div class="form-row"><label>Nicho</label><input id="nc_nicho"></div></div>
+  <div class="btn-row"><button class="btn btn-primary" onclick="criarCliente()">Criar</button><button class="btn btn-outline" onclick="closeModal('modalNovoCliente')">Cancelar</button></div>
 </div></div>
 <div class="modal" id="modalEditarCliente"><div class="modal-box">
-  <div class="modal-title">Editar Cliente <button class="btn btn-ghost" onclick="closeModal('modalEditarCliente')" style="font-size:18px">â</button></div>
+  <div class="modal-title">Editar Cliente <button class="btn btn-ghost" onclick="closeModal('modalEditarCliente')" style="font-size:18px">✕</button></div>
   <input type="hidden" id="ec_id">
   <div class="grid-2"><div class="form-row"><label>Nome *</label><input id="ec_nome"></div><div class="form-row"><label>Email *</label><input id="ec_email" type="email"></div></div>
-  <div class="grid-2"><div class="form-row"><label>Nome do Canal</label><input id="ec_canal"></div><div class="form-row"><label>Nicho</label><input id="ec_nicho"></div></div>
+  <div class="grid-2"><div class="form-row"><label>Canal</label><input id="ec_canal"></div><div class="form-row"><label>Nicho</label><input id="ec_nicho"></div></div>
   <div class="btn-row"><button class="btn btn-primary" onclick="salvarEdicaoCliente()">Salvar</button><button class="btn btn-outline" onclick="closeModal('modalEditarCliente')">Cancelar</button></div>
 </div></div>
 <div class="modal" id="modalNovaPauta"><div class="modal-box">
-  <div class="modal-title">Nova Pauta <button class="btn btn-ghost" onclick="closeModal('modalNovaPauta')" style="font-size:18px">â</button></div>
-  <div class="form-row"><label>TÃ­tulo *</label><input id="np_titulo" placeholder="Ex: Como vender na Amazon sem estoque"></div>
+  <div class="modal-title">Nova Pauta <button class="btn btn-ghost" onclick="closeModal('modalNovaPauta')" style="font-size:18px">✕</button></div>
+  <div class="form-row"><label>Título *</label><input id="np_titulo"></div>
   <div class="form-row"><label>Nicho</label><input id="np_nicho"></div>
-  <div class="form-row"><label>Ãngulo sugerido</label><textarea id="np_angulo" placeholder="Como vocÃª abordaria esse tema?"></textarea></div>
-  <div class="grid-2"><div class="form-row"><label>Volume de busca</label><input id="np_volume" type="number"></div><div class="form-row"><label>ConcorrÃªncia</label><select id="np_concorrencia" style="height:42px"><option value="baixa">Baixa</option><option value="media" selected>MÃ©dia</option><option value="alta">Alta</option></select></div></div>
-  <div class="btn-row"><button class="btn btn-primary" onclick="criarPauta()">Adicionar Pauta</button><button class="btn btn-outline" onclick="closeModal('modalNovaPauta')">Cancelar</button></div>
+  <div class="form-row"><label>Ângulo sugerido</label><textarea id="np_angulo"></textarea></div>
+  <div class="grid-2"><div class="form-row"><label>Volume de busca</label><input id="np_volume" type="number"></div><div class="form-row"><label>Concorrência</label><select id="np_concorrencia" style="height:42px"><option value="baixa">Baixa</option><option value="media" selected>Média</option><option value="alta">Alta</option></select></div></div>
+  <div class="btn-row"><button class="btn btn-primary" onclick="criarPauta()">Adicionar</button><button class="btn btn-outline" onclick="closeModal('modalNovaPauta')">Cancelar</button></div>
 </div></div>
 <script>
 const API='';
@@ -291,65 +279,40 @@ function showPage(id,el){
 }
 function openModal(id){document.getElementById(id).classList.add('show');}
 function closeModal(id){document.getElementById(id).classList.remove('show');}
-
 function selectClient(id){
-  currentClient=clients.find(c=>c.id==id)||null;
-  dnaData=null;
+  currentClient=clients.find(c=>c.id==id)||null; dnaData=null;
   const active=document.querySelector('.page.active');
   if(active){const pid=active.id.replace('page-','');if(['dna','youtube','tracker','historico','dashboard'].includes(pid))showPage(pid,null);}
 }
-
 async function loadClients(){
   try{
-    const r=await fetch(API+'/api/clients');
-    clients=await r.json();
-    const sel=document.getElementById('clientSelect');
-    const cur=sel.value;
+    clients=await fetch(API+'/api/clients').then(r=>r.json());
+    const sel=document.getElementById('clientSelect'),cur=sel.value;
     sel.innerHTML='<option value="">Selecione...</option>';
     clients.forEach(c=>{sel.innerHTML+=`<option value="${c.id}" ${c.id==cur?'selected':''}>${c.name}</option>`;});
     if(cur)currentClient=clients.find(c=>c.id==cur)||currentClient;
-  }catch(e){console.error(e);}
+  }catch(e){}
 }
-
 async function loadClientes(){
   await loadClients();
   const el=document.getElementById('listaClientes');
-  if(!clients.length){el.innerHTML='<div class="empty-state"><div class="empty-icon">â¦</div><div class="empty-text">Nenhum cliente ainda</div></div>';return;}
-  el.innerHTML=clients.map(c=>`
-    <div class="client-card ${currentClient?.id==c.id?'selected':''}" onclick="activateClient(${c.id})">
-      <div class="client-info"><div class="name">${c.name}</div><div class="sub">${c.channel_name?'â¶ '+c.channel_name:''} ${c.niche?'Â· '+c.niche:''}</div><div class="sub">${c.email}</div></div>
-      <div style="display:flex;gap:6px"><button class="btn btn-outline" style="font-size:11px;padding:5px 10px" onclick="event.stopPropagation();openEditCliente(${c.id})">â Editar</button><button class="btn btn-danger" style="font-size:11px;padding:5px 10px" onclick="event.stopPropagation();deletarCliente(${c.id})">â</button></div>
-    </div>`).join('');
+  if(!clients.length){el.innerHTML='<div class="empty-state"><div class="empty-icon">✦</div><div class="empty-text">Nenhum cliente ainda</div></div>';return;}
+  el.innerHTML=clients.map(c=>`<div class="client-card ${currentClient?.id==c.id?'selected':''}" onclick="activateClient(${c.id})"><div class="client-info"><div class="name">${c.name}</div><div class="sub">${c.channel_name?'▶ '+c.channel_name:''} ${c.niche?'· '+c.niche:''}</div><div class="sub">${c.email}</div></div><div style="display:flex;gap:6px"><button class="btn btn-outline" style="font-size:11px;padding:5px 10px" onclick="event.stopPropagation();openEditCliente(${c.id})">✎ Editar</button><button class="btn btn-danger" style="font-size:11px;padding:5px 10px" onclick="event.stopPropagation();deletarCliente(${c.id})">✕</button></div></div>`).join('');
 }
 function activateClient(id){document.getElementById('clientSelect').value=id;selectClient(id);loadClientes();}
-
 async function criarCliente(){
-  const name=document.getElementById('nc_nome').value.trim();
-  const email=document.getElementById('nc_email').value.trim();
-  if(!name||!email){alert('Nome e email sÃ£o obrigatÃ³rios');return;}
-  try{
-    const r=await fetch(API+'/api/clients',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name,email,channel_name:document.getElementById('nc_canal').value,niche:document.getElementById('nc_nicho').value})});
-    const c=await r.json();closeModal('modalNovoCliente');
-    ['nc_nome','nc_email','nc_canal','nc_nicho'].forEach(id=>document.getElementById(id).value='');
-    await loadClientes();activateClient(c.id);
-  }catch(e){alert('Erro: '+e.message);}
+  const name=document.getElementById('nc_nome').value.trim(),email=document.getElementById('nc_email').value.trim();
+  if(!name||!email){alert('Nome e email são obrigatórios');return;}
+  try{const c=await fetch(API+'/api/clients',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name,email,channel_name:document.getElementById('nc_canal').value,niche:document.getElementById('nc_nicho').value})}).then(r=>r.json());closeModal('modalNovoCliente');['nc_nome','nc_email','nc_canal','nc_nicho'].forEach(id=>document.getElementById(id).value='');await loadClientes();activateClient(c.id);}catch(e){alert('Erro: '+e.message);}
 }
 function openEditCliente(id){
   const c=clients.find(x=>x.id==id);if(!c)return;
-  document.getElementById('ec_id').value=c.id;
-  document.getElementById('ec_nome').value=c.name||'';
-  document.getElementById('ec_email').value=c.email||'';
-  document.getElementById('ec_canal').value=c.channel_name||'';
-  document.getElementById('ec_nicho').value=c.niche||'';
+  ['ec_id','ec_nome','ec_email','ec_canal','ec_nicho'].forEach((fid,i)=>document.getElementById(fid).value=[c.id,c.name||'',c.email||'',c.channel_name||'',c.niche||''][i]);
   openModal('modalEditarCliente');
 }
 async function salvarEdicaoCliente(){
   const id=document.getElementById('ec_id').value;
-  try{
-    await fetch(API+'/api/clients/'+id,{method:'PATCH',headers:{'Content-Type':'application/json'},body:JSON.stringify({name:document.getElementById('ec_nome').value,email:document.getElementById('ec_email').value,channel_name:document.getElementById('ec_canal').value,niche:document.getElementById('ec_nicho').value})});
-    closeModal('modalEditarCliente');await loadClientes();
-    if(currentClient?.id==id)currentClient=clients.find(c=>c.id==id);
-  }catch(e){alert('Erro: '+e.message);}
+  try{await fetch(API+'/api/clients/'+id,{method:'PATCH',headers:{'Content-Type':'application/json'},body:JSON.stringify({name:document.getElementById('ec_nome').value,email:document.getElementById('ec_email').value,channel_name:document.getElementById('ec_canal').value,niche:document.getElementById('ec_nicho').value})});closeModal('modalEditarCliente');await loadClientes();if(currentClient?.id==id)currentClient=clients.find(c=>c.id==id);}catch(e){alert('Erro: '+e.message);}
 }
 async function deletarCliente(id){
   if(!confirm('Apagar este cliente e todos os dados?'))return;
@@ -357,56 +320,36 @@ async function deletarCliente(id){
   if(currentClient?.id==id){currentClient=null;document.getElementById('clientSelect').value='';}
   await loadClientes();
 }
-
 async function loadDNAPage(){
-  const noClient=document.getElementById('dnaNoClient'),viewMode=document.getElementById('dnaViewMode'),editMode=document.getElementById('dnaEditMode'),newCta=document.getElementById('dnaNewCta'),actions=document.getElementById('dnaActions');
-  if(!currentClient){noClient.style.display='';viewMode.style.display='none';editMode.style.display='none';newCta.style.display='none';actions.innerHTML='';return;}
-  noClient.style.display='none';
-  try{const r=await fetch(API+'/api/clients/'+currentClient.id+'/dna');dnaData=await r.json();}catch(e){dnaData=null;}
-  if(!dnaData){viewMode.style.display='none';editMode.style.display='none';newCta.style.display='';actions.innerHTML='';return;}
+  const els={noClient:document.getElementById('dnaNoClient'),viewMode:document.getElementById('dnaViewMode'),editMode:document.getElementById('dnaEditMode'),newCta:document.getElementById('dnaNewCta'),actions:document.getElementById('dnaActions')};
+  if(!currentClient){els.noClient.style.display='';['viewMode','editMode','newCta'].forEach(k=>els[k].style.display='none');els.actions.innerHTML='';return;}
+  els.noClient.style.display='none';
+  try{dnaData=await fetch(API+'/api/clients/'+currentClient.id+'/dna').then(r=>r.json());}catch(e){dnaData=null;}
+  if(!dnaData){els.viewMode.style.display='none';els.editMode.style.display='none';els.newCta.style.display='';els.actions.innerHTML='';return;}
   if(dnaEditing)showDNAEdit();else showDNAView();
 }
-
 function showDNAView(){
   dnaEditing=false;
   document.getElementById('dnaViewMode').style.display='';
   document.getElementById('dnaEditMode').style.display='none';
   document.getElementById('dnaNewCta').style.display='none';
-  document.getElementById('dnaActions').innerHTML=`<button class="btn btn-outline" onclick="enterDNAEdit()">â Editar DNA</button>`;
+  document.getElementById('dnaActions').innerHTML='<button class="btn btn-outline" onclick="enterDNAEdit()">✎ Editar DNA</button>';
   const d=dnaData;
-  const fill=(id,val)=>{document.getElementById(id).textContent=val||'â';};
-  fill('dv_tone',d.tone);fill('dv_audience',d.target_audience);fill('dv_pillars',d.content_pillars);
-  fill('dv_voice',d.brand_voice);fill('dv_competitors',d.competitors);fill('dv_keywords',d.keywords);fill('dv_notes',d.extra_notes);
+  ['tone','target_audience','content_pillars','brand_voice','competitors','keywords','extra_notes'].forEach((k,i)=>{document.getElementById(['dv_tone','dv_audience','dv_pillars','dv_voice','dv_competitors','dv_keywords','dv_notes'][i]).textContent=d[k]||'—';});
   document.getElementById('dna_updated_at').textContent=d.updated_at?'Atualizado em: '+new Date(d.updated_at).toLocaleString('pt-BR'):'';
   const ytEl=document.getElementById('dv_yt_key_status');
-  if(d.youtube_api_key){
-    ytEl.innerHTML=`<span class="badge badge-green">â Configurada</span> <span style="font-size:11px;color:var(--muted)">â¢â¢â¢â¢â¢â¢â¢â¢â¢â¢â¢â¢${d.youtube_api_key.slice(-4)}</span>${d.channel_id?` &nbsp;<span class="badge badge-blue">Channel: ${d.channel_id.slice(0,14)}...</span>`:''}`;  
-  }else{
-    ytEl.innerHTML=`<span class="badge badge-orange">â ï¸ NÃ£o configurada</span> <span style="font-size:11px;color:var(--muted)">Clique em Editar DNA para configurar</span>`;
-  }
+  ytEl.innerHTML=d.youtube_api_key?`<span class="badge badge-green">✓ Configurada</span> <span style="font-size:11px;color:var(--muted)">••••••••••••${d.youtube_api_key.slice(-4)}</span>`:`<span class="badge badge-orange">⚠️ Não configurada</span>`;
 }
-
 function showDNAEdit(){
   dnaEditing=true;
   document.getElementById('dnaViewMode').style.display='none';
   document.getElementById('dnaEditMode').style.display='';
   document.getElementById('dnaNewCta').style.display='none';
   document.getElementById('dnaActions').innerHTML='';
-  if(dnaData){
-    document.getElementById('dna_tone').value=dnaData.tone||'';
-    document.getElementById('dna_audience').value=dnaData.target_audience||'';
-    document.getElementById('dna_pillars').value=dnaData.content_pillars||'';
-    document.getElementById('dna_voice').value=dnaData.brand_voice||'';
-    document.getElementById('dna_competitors').value=dnaData.competitors||'';
-    document.getElementById('dna_keywords').value=dnaData.keywords||'';
-    document.getElementById('dna_notes').value=dnaData.extra_notes||'';
-    document.getElementById('dna_yt_key').value=dnaData.youtube_api_key||'';
-    document.getElementById('dna_channel_id').value=dnaData.channel_id||'';
-  }
+  if(dnaData){['dna_tone','dna_audience','dna_pillars','dna_voice','dna_competitors','dna_keywords','dna_notes','dna_yt_key','dna_channel_id'].forEach((id,i)=>{document.getElementById(id).value=[dnaData.tone,dnaData.target_audience,dnaData.content_pillars,dnaData.brand_voice,dnaData.competitors,dnaData.keywords,dnaData.extra_notes,dnaData.youtube_api_key,dnaData.channel_id][i]||'';});}
 }
 function enterDNAEdit(){dnaEditing=true;showDNAEdit();}
 function cancelDNAEdit(){dnaEditing=false;if(dnaData)showDNAView();else{document.getElementById('dnaEditMode').style.display='none';document.getElementById('dnaNewCta').style.display='';}}
-
 async function saveDNA(){
   if(!currentClient){alert('Selecione um cliente primeiro');return;}
   try{
@@ -414,77 +357,66 @@ async function saveDNA(){
     dnaData=await r.json();dnaEditing=false;showDNAView();
   }catch(e){alert('Erro: '+e.message);}
 }
-
 async function loadYoutubePage(){
   const noClient=document.getElementById('ytNoClient'),noKey=document.getElementById('ytNoKey'),results=document.getElementById('ytResults');
   results.style.display='none';
   if(!currentClient){noClient.style.display='';noKey.style.display='none';return;}
   noClient.style.display='none';
   const ks=await fetch(API+'/api/clients/'+currentClient.id+'/youtube/key-status').then(r=>r.json()).catch(()=>({hasKey:false}));
-  if(!ks.hasKey){noKey.style.display='';noKey.textContent='â ï¸ YouTube API Key nÃ£o configurada. VÃ¡ em DNA do Cliente â IntegraÃ§Ã£o YouTube.';return;}
+  if(!ks.hasKey){noKey.style.display='';noKey.textContent='⚠️ YouTube API Key não configurada. Vá em DNA do Cliente → Integração YouTube.';return;}
   noKey.style.display='none';
 }
-
 async function analyzeChannel(){
-  if(!currentClient){alert('Selecione um cliente primeiro');return;}
+  if(!currentClient){alert('Selecione um cliente');return;}
   const loading=document.getElementById('loadingYT'),results=document.getElementById('ytResults');
   loading.classList.add('show');results.style.display='none';
   try{
     document.getElementById('loadingYTText').textContent='Buscando dados do canal...';
     const chData=await fetch(API+'/api/clients/'+currentClient.id+'/youtube/channel').then(r=>r.json());
     if(chData.error)throw new Error(chData.error);
-    const sub=chData.stats.subscribers;
-    const subStr=sub>=1000000?(sub/1000000).toFixed(1)+'M':sub>=1000?(sub/1000).toFixed(1)+'K':sub;
-    const views=chData.stats.views;
-    const viewStr=views>=1000000?(views/1000000).toFixed(1)+'M':views>=1000?(views/1000).toFixed(1)+'K':views;
-    document.getElementById('ytMetrics').innerHTML=`<div class="yt-metric"><div class="val">${subStr}</div><div class="lbl">Inscritos</div></div><div class="yt-metric"><div class="val">${viewStr}</div><div class="lbl">Views Total</div></div><div class="yt-metric"><div class="val">${chData.stats.videos.toLocaleString()}</div><div class="lbl">VÃ­deos</div></div><div class="yt-metric"><div class="val">${(chData.avgViewsTop10/1000).toFixed(1)}K</div><div class="lbl">Avg Views Top10</div></div>`;
-    document.getElementById('ytTopVideos').innerHTML=chData.topVideos.slice(0,8).map(v=>`<div class="video-row"><img class="video-thumb" src="${v.thumbnail||''}" onerror="this.style.background='#333'"><div class="video-info"><div class="video-title">${v.title}</div><div class="video-stats"><span>ð ${(v.views/1000).toFixed(0)}K</span><span>ð ${(v.likes/1000).toFixed(1)}K</span><span>ð¬ ${v.comments.toLocaleString()}</span></div></div></div>`).join('');
+    const fmt=n=>n>=1e6?(n/1e6).toFixed(1)+'M':n>=1e3?(n/1e3).toFixed(1)+'K':n;
+    document.getElementById('ytMetrics').innerHTML=`<div class="yt-metric"><div class="val">${fmt(chData.stats.subscribers)}</div><div class="lbl">Inscritos</div></div><div class="yt-metric"><div class="val">${fmt(chData.stats.views)}</div><div class="lbl">Views Total</div></div><div class="yt-metric"><div class="val">${chData.stats.videos.toLocaleString()}</div><div class="lbl">Vídeos</div></div><div class="yt-metric"><div class="val">${(chData.avgViewsTop10/1000).toFixed(1)}K</div><div class="lbl">Avg Views Top10</div></div>`;
+    document.getElementById('ytTopVideos').innerHTML=chData.topVideos.slice(0,8).map(v=>`<div class="video-row"><img class="video-thumb" src="${v.thumbnail||''}" onerror="this.style.background='#333'"><div class="video-info"><div class="video-title">${v.title}</div><div class="video-stats"><span>👁 ${fmt(v.views)}</span><span>👍 ${fmt(v.likes)}</span></div></div></div>`).join('');
     results.style.display='';
-    document.getElementById('loadingYTText').textContent='Gerando anÃ¡lise com IA...';
+    document.getElementById('loadingYTText').textContent='Gerando análise com IA...';
     const ai=await fetch(API+'/api/clients/'+currentClient.id+'/youtube/ai-analysis',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({channelData:chData})}).then(r=>r.json());
     if(ai.error)throw new Error(ai.error);
     const sc=ai.health_score>=70?'var(--green)':ai.health_score>=40?'var(--orange)':'#e24b4a';
-    document.getElementById('ytAIResults').innerHTML=`<div class="card-title">AnÃ¡lise EstratÃ©gica IA</div><div style="margin-bottom:1rem"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px"><span style="font-size:13px">Health Score</span><span style="font-family:'Bebas Neue';font-size:24px;color:${sc}">${ai.health_score}/100 Â· ${ai.health_label}</span></div><div class="score-bar"><div class="score-fill" style="width:${ai.health_score}%;background:${sc}"></div></div></div><div style="display:flex;gap:8px;margin-bottom:1rem;flex-wrap:wrap"><span class="badge badge-blue">ð ${ai.growth_status}</span><span class="badge badge-orange">â¡ ${ai.engagement_rate}</span><span class="badge badge-gray">ð ${ai.posting_frequency}</span></div><div style="margin-bottom:1rem"><div class="section-label">Pontos Fortes</div>${ai.strengths?.map(s=>`<div class="bench-item" style="border-color:var(--green)">â ${s}</div>`).join('')}</div><div style="margin-bottom:1rem"><div class="section-label">Oportunidades</div>${ai.opportunities?.map(o=>`<div class="bench-item">â ${o}</div>`).join('')}</div><div style="margin-bottom:1rem"><div class="section-label">TÃ³picos</div><div>${ai.recommended_topics?.map(t=>`<span class="tag">${t}</span>`).join('')}</div></div><div><div class="section-label">PrÃ³ximas AÃ§Ãµes</div>${ai.next_actions?.map((a,i)=>`<div class="bench-item">${i+1}. ${a}</div>`).join('')}</div>`;
-  }catch(e){document.getElementById('ytAIResults').innerHTML=`<div class="alert alert-warning">â ï¸ Erro: ${e.message}</div>`;results.style.display='';}
+    document.getElementById('ytAIResults').innerHTML=`<div class="card-title">Análise Estratégica</div><div style="margin-bottom:1rem"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px"><span>Health Score</span><span style="font-family:'Bebas Neue';font-size:24px;color:${sc}">${ai.health_score}/100 · ${ai.health_label}</span></div><div class="score-bar"><div class="score-fill" style="width:${ai.health_score}%;background:${sc}"></div></div></div><div style="margin-bottom:1rem"><div class="section-label">Pontos Fortes</div>${(ai.strengths||[]).map(s=>`<div class="bench-item" style="border-color:var(--green)">✓ ${s}</div>`).join('')}</div><div style="margin-bottom:1rem"><div class="section-label">Oportunidades</div>${(ai.opportunities||[]).map(o=>`<div class="bench-item">◎ ${o}</div>`).join('')}</div><div><div class="section-label">Próximas Ações</div>${(ai.next_actions||[]).map((a,i)=>`<div class="bench-item">${i+1}. ${a}</div>`).join('')}</div>`;
+  }catch(e){document.getElementById('ytAIResults').innerHTML=`<div class="alert alert-warning">⚠️ ${e.message}</div>`;results.style.display='';}
   loading.classList.remove('show');
 }
-
 async function runBenchmark(){
   const niche=document.getElementById('bm_niche').value.trim();
   if(!niche){alert('Informe o nicho');return;}
-  const keywords=document.getElementById('bm_keywords').value.trim();
   const loading=document.getElementById('loadingBench'),results=document.getElementById('benchResults');
   loading.classList.add('show');results.style.display='none';
   try{
-    const data=await fetch(API+'/api/youtube/benchmark',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({niche,keywords,client_id:currentClient?.id||null})}).then(r=>r.json());
+    const data=await fetch(API+'/api/youtube/benchmark',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({niche,keywords:document.getElementById('bm_keywords').value.trim(),client_id:currentClient?.id||null})}).then(r=>r.json());
     if(data.error)throw new Error(data.error);
     const a=data.analysis;
-    results.innerHTML=`<div class="card"><div class="card-title">Overview â ${niche.toUpperCase()}</div><div class="grid-4" style="margin-bottom:1rem"><div class="yt-metric"><div class="val" style="font-size:18px">${a.competition_level}</div><div class="lbl">Competition</div></div><div class="yt-metric"><div class="val" style="font-size:18px">${a.entry_difficulty}</div><div class="lbl">Entry Difficulty</div></div><div class="yt-metric"><div class="val" style="font-size:18px">${a.monetization_potential}</div><div class="lbl">Monetization</div></div><div class="yt-metric"><div class="val" style="font-size:18px">${a.growth_trend}</div><div class="lbl">Trend</div></div></div><p style="font-size:14px;line-height:1.7">${a.niche_overview}</p></div><div class="grid-2"><div class="card"><div class="card-title">Winning Title Patterns</div>${a.winning_title_patterns?.map(p=>`<div class="bench-item">"${p}"</div>`).join('')}</div><div class="card"><div class="card-title">Trending Topics</div>${a.trending_topics?.map(t=>`<div class="bench-item">â ${t}</div>`).join('')}</div></div><div class="card"><div class="card-title">Best Keywords</div><div>${a.best_keywords?.map(k=>`<span class="tag">${k}</span>`).join('')}</div></div><div class="grid-2"><div class="card"><div class="card-title">Opportunities</div>${a.opportunities?.map(o=>`<div class="bench-item" style="border-color:var(--green)">â ${o}</div>`).join('')}</div><div class="card"><div class="card-title">Content Formats</div>${a.content_formats?.map(f=>`<div class="bench-item">â¶ ${f}</div>`).join('')}</div></div><div class="card" style="border-color:var(--orange)"><div class="card-title">ð¯ Recommended Strategy</div><p style="font-size:14px;line-height:1.8">${a.recommended_strategy}</p><div style="margin-top:12px"><span class="badge badge-orange">ð ${a.content_cadence}</span></div></div>`;
+    results.innerHTML=`<div class="card"><div class="card-title">Overview — ${niche.toUpperCase()}</div><div class="grid-4" style="margin-bottom:1rem"><div class="yt-metric"><div class="val" style="font-size:18px">${a.competition_level}</div><div class="lbl">Competition</div></div><div class="yt-metric"><div class="val" style="font-size:18px">${a.entry_difficulty}</div><div class="lbl">Entry Difficulty</div></div><div class="yt-metric"><div class="val" style="font-size:18px">${a.monetization_potential}</div><div class="lbl">Monetization</div></div><div class="yt-metric"><div class="val" style="font-size:18px">${a.growth_trend}</div><div class="lbl">Trend</div></div></div><p style="font-size:14px;line-height:1.7">${a.niche_overview}</p></div><div class="grid-2"><div class="card"><div class="card-title">Winning Patterns</div>${(a.winning_title_patterns||[]).map(p=>`<div class="bench-item">"${p}"</div>`).join('')}</div><div class="card"><div class="card-title">Trending Topics</div>${(a.trending_topics||[]).map(t=>`<div class="bench-item">${t}</div>`).join('')}</div></div><div class="card"><div class="card-title">Best Keywords</div><div>${(a.best_keywords||[]).map(k=>`<span class="tag">${k}</span>`).join('')}</div></div><div class="grid-2"><div class="card"><div class="card-title">Opportunities</div>${(a.opportunities||[]).map(o=>`<div class="bench-item" style="border-color:var(--green)">✓ ${o}</div>`).join('')}</div><div class="card"><div class="card-title">Content Formats</div>${(a.content_formats||[]).map(f=>`<div class="bench-item">▶ ${f}</div>`).join('')}</div></div><div class="card" style="border-color:var(--orange)"><div class="card-title">🎯 Recommended Strategy</div><p style="font-size:14px;line-height:1.8">${a.recommended_strategy}</p><div style="margin-top:12px"><span class="badge badge-orange">📅 ${a.content_cadence}</span></div></div>`;
     results.style.display='';
-  }catch(e){results.innerHTML=`<div class="alert alert-warning">â ï¸ Erro: ${e.message}</div>`;results.style.display='';}
+  }catch(e){results.innerHTML=`<div class="alert alert-warning">⚠️ ${e.message}</div>`;results.style.display='';}
   loading.classList.remove('show');
 }
-
 async function gerarConteudo(){
   const tema=document.getElementById('gen_tema').value.trim();
-  if(!tema){alert('Informe o tema do vÃ­deo');return;}
+  if(!tema){alert('Informe o tema');return;}
   const autor=document.getElementById('gen_autor').value.trim()||(currentClient?.channel_name||'');
   document.getElementById('btnGerar').disabled=true;
   document.getElementById('loadingGerador').classList.add('show');
   document.getElementById('resultadoGerador').style.display='none';
-  const msgs=['Gerando tÃ­tulos SEO...','Criando descriÃ§Ã£o...','Montando capÃ­tulos e tags...','Elaborando email...','Criando roteiro em primeira pessoa...'];
-  let mi=0;
-  const lt=setInterval(()=>{document.getElementById('loadingText').textContent=msgs[++mi%msgs.length];},2500);
+  const msgs=['Gerando títulos SEO...','Criando descrição...','Montando capítulos e tags...','Elaborando email...','Criando roteiro...'];
+  let mi=0; const lt=setInterval(()=>{document.getElementById('loadingText').textContent=msgs[++mi%msgs.length];},2500);
   let dnaCtx='';
-  if(currentClient){try{const dna=await fetch(API+'/api/clients/'+currentClient.id+'/dna').then(r=>r.json());if(dna)dnaCtx=`\nDNA: Tom="${dna.tone||''}", P\u00FAblico="${dna.target_audience||''}", Pilares="${dna.content_pillars||''}", Keywords="${dna.keywords||''}"`;}
+  if(currentClient){try{const dna=await fetch(API+'/api/clients/'+currentClient.id+'/dna').then(r=>r.json());if(dna)dnaCtx=`\nDNA: Tom="${dna.tone||''}", P\u00FAblico="${dna.target_audience||''}", Pilares="${dna.content_pillars||''}", Keywords="${dna.keywords||""}"`;}
   catch(e){}}
-  const prompt=`Tema do video: "${tema}"\nApresentador: "${autor||'n\u00E3o informado'}"${dnaCtx}\n\nGere em JSON sem markdown:\n{\n"titulos":"5 titulos SEO numerados com emojis",\n"descricao":"descricao humanizada primeira pessoa 200-300 palavras com [LINK DO VIDEO]",\n"capitulos":"6-8 capitulos com timestamps 00:00",\n"tags":"tags csv max 500 chars",\n"email_titulo":"titulo email com emojis",\n"email_subtitulo":"subtitulo email",\n"email_corpo":"email completo com [LINK DO VIDEO]",\n"thumb_briefing":"briefing visual detalhado",\n"thumb_prompt":"prompt midjourney ingles paleta #fe7b03 #000000 @img1 --ar 16:9 --style raw",\n"roteiro":"roteiro completo em primeira pessoa tom conversacional incluindo gancho abertura desenvolvimento exemplos praticos CTA final minimo 400 palavras"\n}`;
+  const prompt=`Tema: "${tema}"\nApresentador: "${autor||'n\u00E3o informado'}"${dnaCtx}\n\nGere JSON sem markdown:\n{\n"titulos":"5 titulos SEO numerados com emojis",\n"descricao":"descricao humanizada primeira pessoa 200-300 palavras com [LINK DO VIDEO]",\n"capitulos":"6-8 capitulos com timestamps 00:00",\n"tags":"tags csv max 500 chars",\n"email_titulo":"titulo email",\n"email_subtitulo":"subtitulo",\n"email_corpo":"email com [LINK DO VIDEO]",\n"thumb_briefing":"briefing visual",\n"thumb_prompt":"prompt midjourney ingles #fe7b03 #000000 --ar 16:9 --style raw",\n"roteiro":"roteiro completo primeira pessoa tom conversacional gancho desenvolvimento exemplos CTA minimo 400 palavras"\n}`;
   try{
-    const r=await fetch(API+'/api/generate',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({messages:[{role:'user',content:prompt}]})});
+    const data=await fetch(API+'/api/generate',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({messages:[{role:'user',content:prompt}]})}).then(r=>r.json());
     clearInterval(lt);
-    const data=await r.json();
-    const clean=data.content[0].text.replace(new RegExp('```json|```','g'),'').trim();
-    const json=JSON.parse(clean);
+    const json=JSON.parse(data.content[0].text.replace(new RegExp('```json|```','g'),'').trim());
     document.getElementById('res_titulos').textContent=json.titulos;
     document.getElementById('res_descricao').textContent=json.descricao;
     document.getElementById('res_capitulos').textContent=json.capitulos;
@@ -498,64 +430,55 @@ async function gerarConteudo(){
     document.getElementById('res_roteiro').textContent=json.roteiro;
     lastGenerated={video_topic:tema,titles:json.titulos,description:json.descricao,chapters:json.capitulos,tags:json.tags,email_content:emailFull,thumb_brief:json.thumb_briefing,thumb_prompt:json.thumb_prompt,roteiro:json.roteiro};
     document.getElementById('resultadoGerador').style.display='block';
-  }catch(e){clearInterval(lt);alert('Erro ao gerar: '+e.message);}
+  }catch(e){clearInterval(lt);alert('Erro: '+e.message);}
   document.getElementById('btnGerar').disabled=false;
   document.getElementById('loadingGerador').classList.remove('show');
 }
-
 async function salvarConteudo(){
-  if(!currentClient){alert('Selecione um cliente para salvar');return;}
+  if(!currentClient){alert('Selecione um cliente');return;}
   if(!lastGenerated)return;
-  try{await fetch(API+'/api/clients/'+currentClient.id+'/content',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(lastGenerated)});alert('Salvo no histÃ³rico!');}
+  try{await fetch(API+'/api/clients/'+currentClient.id+'/content',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(lastGenerated)});alert('Salvo!');}
   catch(e){alert('Erro: '+e.message);}
 }
-
 async function loadTracker(){
-  if(!currentClient){document.getElementById('listaTracker').innerHTML='<div class="empty-state"><div class="empty-icon">â§</div><div class="empty-text">Selecione um cliente</div></div>';return;}
+  if(!currentClient){document.getElementById('listaTracker').innerHTML='<div class="empty-state"><div class="empty-icon">✧</div><div class="empty-text">Selecione um cliente</div></div>';return;}
   try{
     const items=await fetch(API+'/api/clients/'+currentClient.id+'/tracker').then(r=>r.json());
     const el=document.getElementById('listaTracker');
-    if(!items.length){el.innerHTML='<div class="empty-state"><div class="empty-icon">â§</div><div class="empty-text">Nenhuma pauta ainda</div></div>';return;}
-    el.innerHTML=items.map(i=>`<div class="tracker-item"><div class="tracker-main"><div class="tracker-title">${i.title}</div><div class="tracker-meta"><span class="badge ${i.status==='publicado'?'badge-green':i.status==='producao'?'badge-blue':'badge-orange'}">${i.status}</span>${i.niche?`<span class="badge badge-gray">${i.niche}</span>`:''}</div>${i.suggested_angle?`<div style="font-size:12px;color:var(--muted);margin-top:6px">${i.suggested_angle}</div>`:''}</div><div class="tracker-actions"><select onchange="updateStatus(${i.id},this.value)" style="font-size:12px;padding:5px 8px;height:auto;width:auto;min-width:110px"><option ${i.status==='sugerido'?'selected':''} value="sugerido">Sugerido</option><option ${i.status==='producao'?'selected':''} value="producao">Em produÃ§Ã£o</option><option ${i.status==='publicado'?'selected':''} value="publicado">Publicado</option></select><button class="btn btn-danger" style="font-size:11px;padding:5px 9px" onclick="deletarPauta(${i.id})">â</button></div></div>`).join('');
+    if(!items.length){el.innerHTML='<div class="empty-state"><div class="empty-icon">✧</div><div class="empty-text">Nenhuma pauta ainda</div></div>';return;}
+    el.innerHTML=items.map(i=>`<div class="tracker-item"><div class="tracker-main"><div class="tracker-title">${i.title}</div><div class="tracker-meta"><span class="badge ${i.status==='publicado'?'badge-green':i.status==='producao'?'badge-blue':'badge-orange'}">${i.status}</span>${i.niche?`<span class="badge badge-gray">${i.niche}</span>`:''}</div>${i.suggested_angle?`<div style="font-size:12px;color:var(--muted);margin-top:6px">${i.suggested_angle}</div>`:''}</div><div class="tracker-actions"><select onchange="updateStatus(${i.id},this.value)" style="font-size:12px;padding:5px 8px;height:auto;width:auto;min-width:110px"><option ${i.status==='sugerido'?'selected':''} value="sugerido">Sugerido</option><option ${i.status==='producao'?'selected':''} value="producao">Em produção</option><option ${i.status==='publicado'?'selected':''} value="publicado">Publicado</option></select><button class="btn btn-danger" style="font-size:11px;padding:5px 9px" onclick="deletarPauta(${i.id})">✕</button></div></div>`).join('');
   }catch(e){}
 }
 async function criarPauta(){
-  if(!currentClient){alert('Selecione um cliente primeiro');return;}
+  if(!currentClient){alert('Selecione um cliente');return;}
   const title=document.getElementById('np_titulo').value.trim();
-  if(!title){alert('TÃ­tulo obrigatÃ³rio');return;}
-  try{
-    await fetch(API+'/api/clients/'+currentClient.id+'/tracker',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({title,niche:document.getElementById('np_nicho').value,suggested_angle:document.getElementById('np_angulo').value,search_volume:document.getElementById('np_volume').value||0,competition:document.getElementById('np_concorrencia').value})});
-    closeModal('modalNovaPauta');['np_titulo','np_nicho','np_angulo','np_volume'].forEach(id=>document.getElementById(id).value='');await loadTracker();
-  }catch(e){alert('Erro: '+e.message);}
+  if(!title){alert('Título obrigatório');return;}
+  try{await fetch(API+'/api/clients/'+currentClient.id+'/tracker',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({title,niche:document.getElementById('np_nicho').value,suggested_angle:document.getElementById('np_angulo').value,search_volume:document.getElementById('np_volume').value||0,competition:document.getElementById('np_concorrencia').value})});closeModal('modalNovaPauta');['np_titulo','np_nicho','np_angulo','np_volume'].forEach(id=>document.getElementById(id).value='');await loadTracker();}catch(e){alert('Erro: '+e.message);}
 }
 async function updateStatus(id,status){await fetch(API+'/api/tracker/'+id,{method:'PATCH',headers:{'Content-Type':'application/json'},body:JSON.stringify({status})});}
-async function deletarPauta(id){if(!confirm('Apagar esta pauta?'))return;await fetch(API+'/api/tracker/'+id,{method:'DELETE'});await loadTracker();}
-
+async function deletarPauta(id){if(!confirm('Apagar?'))return;await fetch(API+'/api/tracker/'+id,{method:'DELETE'});await loadTracker();}
 async function sugerirPautas(){
-  if(!currentClient){alert('Selecione um cliente primeiro');return;}
+  if(!currentClient){alert('Selecione um cliente');return;}
   document.getElementById('loadingTracker').classList.add('show');document.getElementById('btnSugerirPautas').disabled=true;
   try{
     const dna=await fetch(API+'/api/clients/'+currentClient.id+'/dna').then(r=>r.json());
-    const prompt=`Cliente: ${currentClient.name}, nicho: ${currentClient.niche||dna?.keywords||'geral'}.\nPilares: ${dna?.content_pillars||''}\nKeywords: ${dna?.keywords||''}\n\nSugira 5 pautas YouTube com alto potencial SEO. JSON:\n{"pautas":[{"title":"...","suggested_angle":"...","search_volume":1000,"competition":"media"}]}`;
-    const r=await fetch(API+'/api/generate',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({messages:[{role:'user',content:prompt}]})});
-    const data=await r.json();
+    const prompt=`Cliente: ${currentClient.name}, nicho: ${currentClient.niche||dna?.keywords||'geral'}.\nKeywords: ${dna?.keywords||''}\n\nSugira 5 pautas YouTube SEO. JSON:\n{"pautas":[{"title":"...","suggested_angle":"...","search_volume":1000,"competition":"media"}]}`;
+    const data=await fetch(API+'/api/generate',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({messages:[{role:'user',content:prompt}]})}).then(r=>r.json());
     const json=JSON.parse(data.content[0].text.replace(new RegExp('```json|```','g'),'').trim());
-    for(const p of json.pautas){await fetch(API+'/api/clients/'+currentClient.id+'/tracker',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({...p,niche:currentClient.niche||''})});}
+    for(const p of json.pautas)await fetch(API+'/api/clients/'+currentClient.id+'/tracker',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({...p,niche:currentClient.niche||''})});
     await loadTracker();
   }catch(e){alert('Erro: '+e.message);}
   document.getElementById('loadingTracker').classList.remove('show');document.getElementById('btnSugerirPautas').disabled=false;
 }
-
 async function loadHistorico(){
-  if(!currentClient){document.getElementById('listaHistorico').innerHTML='<div class="empty-state"><div class="empty-icon">â£</div><div class="empty-text">Selecione um cliente</div></div>';return;}
+  if(!currentClient){document.getElementById('listaHistorico').innerHTML='<div class="empty-state"><div class="empty-icon">▣</div><div class="empty-text">Selecione um cliente</div></div>';return;}
   try{
     const items=await fetch(API+'/api/clients/'+currentClient.id+'/content').then(r=>r.json());
     const el=document.getElementById('listaHistorico');
-    if(!items.length){el.innerHTML='<div class="empty-state"><div class="empty-icon">â£</div><div class="empty-text">Nenhum conteÃºdo gerado ainda</div></div>';return;}
-    el.innerHTML=items.map(i=>`<div class="history-item" onclick="this.querySelector('.history-expand').style.display=this.querySelector('.history-expand').style.display==='none'?'block':'none'"><div style="display:flex;justify-content:space-between"><div><div style="font-weight:500">${i.video_topic}</div><div style="font-size:11px;color:var(--muted);margin-top:3px">${new Date(i.created_at).toLocaleString('pt-BR',{day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'})}</div></div><span style="font-size:11px;color:var(--muted)">â¾ expandir</span></div><div class="history-expand">${i.titles?`<div class="section-label" style="margin-top:8px">TÃ­tulos</div><div style="font-size:13px;white-space:pre-wrap">${i.titles}</div>`:''}</div></div>`).join('');
+    if(!items.length){el.innerHTML='<div class="empty-state"><div class="empty-icon">▣</div><div class="empty-text">Nenhum conteúdo ainda</div></div>';return;}
+    el.innerHTML=items.map(i=>`<div class="history-item" onclick="this.querySelector('.history-expand').style.display=this.querySelector('.history-expand').style.display==='none'?'block':'none'"><div style="display:flex;justify-content:space-between"><div><div style="font-weight:500">${i.video_topic}</div><div style="font-size:11px;color:var(--muted);margin-top:3px">${new Date(i.created_at).toLocaleString('pt-BR',{day:'2-digit',month:'short',year:'numeric'})}</div></div><span style="font-size:11px;color:var(--muted)">▾</span></div><div class="history-expand">${i.titles?`<div class="section-label" style="margin-top:8px">Títulos</div><div style="font-size:13px;white-space:pre-wrap">${i.titles}</div>`:''}</div></div>`).join('');
   }catch(e){}
 }
-
 async function loadDashboard(){
   await loadClients();
   document.getElementById('statClientes').textContent=clients.length;
@@ -566,25 +489,21 @@ async function loadDashboard(){
       document.getElementById('statPautas').textContent=tr.length;
     }catch(e){}
     document.getElementById('dashClientInfo').style.display='';
-    document.getElementById('dashClientDetails').innerHTML=`<div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap"><span style="font-weight:600;font-size:16px">${currentClient.name}</span>${currentClient.channel_name?`<span class="badge badge-blue">â¶ ${currentClient.channel_name}</span>`:''} ${currentClient.niche?`<span class="badge badge-orange">${currentClient.niche}</span>`:''}<div style="display:flex;gap:6px;margin-left:auto"><button class="btn btn-outline" style="font-size:11px" onclick="showPage('dna',null)">â¸ DNA</button><button class="btn btn-outline" style="font-size:11px" onclick="showPage('youtube',null)">â¶ YouTube</button><button class="btn btn-primary" style="font-size:11px" onclick="showPage('gerador',null)">â¦ Gerar</button></div></div>`;
+    document.getElementById('dashClientDetails').innerHTML=`<div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap"><span style="font-weight:600;font-size:16px">${currentClient.name}</span>${currentClient.channel_name?`<span class="badge badge-blue">▶ ${currentClient.channel_name}</span>`:''} ${currentClient.niche?`<span class="badge badge-orange">${currentClient.niche}</span>`:''}<div style="display:flex;gap:6px;margin-left:auto"><button class="btn btn-outline" style="font-size:11px" onclick="showPage('dna',null)">✸ DNA</button><button class="btn btn-outline" style="font-size:11px" onclick="showPage('youtube',null)">▶ YouTube</button><button class="btn btn-primary" style="font-size:11px" onclick="showPage('gerador',null)">✦ Gerar</button></div></div>`;
   }
-  const status=await fetch(API+'/api/config/status').then(r=>r.json()).catch(()=>({anthropic:false,youtube:false}));
-  if(!status.youtube&&!currentClient)document.getElementById('configWarning').innerHTML=`<span class="badge badge-orange">â ï¸ YouTube: configure no DNA do cliente</span>`;
+  const st=await fetch(API+'/api/config/status').then(r=>r.json()).catch(()=>({anthropic:false,youtube:false}));
+  if(!st.youtube&&!currentClient)document.getElementById('configWarning').innerHTML='<span class="badge badge-orange">⚠️ YouTube: configure no DNA do cliente</span>';
 }
-
 async function loadConfig(){
-  const status=await fetch(API+'/api/config/status').then(r=>r.json()).catch(()=>({anthropic:false,youtube:false}));
-  document.getElementById('configStatus').innerHTML=`<div class="badge ${status.anthropic?'badge-green':'badge-gray'}">${status.anthropic?'â':'â'} Anthropic ${status.anthropic?'Ativa':'NÃ£o configurada'}</div><div class="badge ${status.youtube?'badge-green':'badge-orange'}">${status.youtube?'â':'â ï¸'} YouTube Global ${status.youtube?'Ativa':'NÃ£o configurada'}</div><div class="badge badge-blue">ð YouTube por cliente: configure no DNA</div>`;
+  const st=await fetch(API+'/api/config/status').then(r=>r.json()).catch(()=>({anthropic:false,youtube:false}));
+  document.getElementById('configStatus').innerHTML=`<div class="badge ${st.anthropic?'badge-green':'badge-gray'}">${st.anthropic?'✓':'✕'} Anthropic ${st.anthropic?'Ativa':'Não configurada'}</div><div class="badge ${st.youtube?'badge-green':'badge-orange'}">${st.youtube?'✓':'⚠️'} YouTube Global ${st.youtube?'Ativa':'Não config.'}</div><div class="badge badge-blue">🔑 YouTube por cliente: configure no DNA</div>`;
 }
-
 function copiar(id,btn){
-  const el=document.getElementById(id);
-  navigator.clipboard.writeText(el.innerText||el.textContent).then(()=>{
+  navigator.clipboard.writeText(document.getElementById(id).innerText||document.getElementById(id).textContent).then(()=>{
     btn.textContent='Copiado!';btn.style.borderColor='#3b6d11';btn.style.color='#7bc142';
     setTimeout(()=>{btn.textContent='Copiar';btn.style.borderColor='';btn.style.color='';},2000);
   });
 }
-
 loadClients().then(()=>loadDashboard());
 </script>
 </body>
