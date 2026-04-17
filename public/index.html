@@ -209,6 +209,7 @@ select option{background:var(--surface2)}
       <div class="grid-2"><div class="form-row"><label>Apresentador / canal</label><input id="gen_autor" placeholder="Ex: Ariadne - Canal Amazon"></div><div class="form-row"><label>Nicho</label><input id="gen_niche" placeholder="Ex: Amazon..."></div></div>
       <button class="btn btn-primary btn-full" id="btnGerar" onclick="gerarConteudo()">GERAR CONTEÚD O COMPLETO</button>
       <div class="loading" id="loadingGerador"><div class="spinner"></div><span id="loadingText">Gerando...</span></div>
+      <div id="draftStatus" style="font-size:11px;color:var(--muted);margin-top:8px;min-height:16px;text-align:right"></div>
     </div>
     <div id="resultadoGerador" style="display:none">
       <div class="card"><div class="section-label">Títulos SEO</div><div class="content-text" id="res_titulos"></div><button class="copy-btn" onclick="copiar('res_titulos',this)">Copiar</button></div>
@@ -274,7 +275,7 @@ function showPage(id,el){
   document.getElementById('page-'+id).classList.add('active');
   if(el)el.classList.add('active');
   else document.querySelectorAll('.nav-item').forEach(i=>{if(i.getAttribute('onclick')?.includes(`'${id}'`))i.classList.add('active');});
-  const map={clientes:loadClientes,dna:loadDNAPage,youtube:loadYoutubePage,tracker:loadTracker,historico:loadHistorico,dashboard:loadDashboard,config:loadConfig};
+  const map={clientes:loadClientes,dna:loadDNAPage,youtube:loadYoutubePage,tracker:loadTracker,historico:loadHistorico,dashboard:loadDashboard,config:loadConfig,gerador:()=>{loadDraft();}};
   if(map[id])map[id]();
 }
 function openModal(id){document.getElementById(id).classList.add('show');}
@@ -282,7 +283,7 @@ function closeModal(id){document.getElementById(id).classList.remove('show');}
 function selectClient(id){
   currentClient=clients.find(c=>c.id==id)||null; dnaData=null;
   const active=document.querySelector('.page.active');
-  if(active){const pid=active.id.replace('page-','');if(['dna','youtube','tracker','historico','dashboard'].includes(pid))showPage(pid,null);}
+  if(active){const pid=active.id.replace('page-','');if(['dna','youtube','tracker','historico','dashboard'].includes(pid))showPage(pid,null);if(pid==='gerador')loadDraft();}
 }
 async function loadClients(){
   try{
@@ -504,7 +505,14 @@ function copiar(id,btn){
     setTimeout(()=>{btn.textContent='Copiar';btn.style.borderColor='';btn.style.color='';},2000);
   });
 }
-loadClients().then(()=>loadDashboard());
+// ── DRAFTS ────────────────────────────────────────────────────────────────────
+let draftTimer=null;
+const DRAFT_FIELDS=['gen_tema','gen_autor','gen_niche'];
+function setupDraftAutosave(){DRAFT_FIELDS.forEach(fieldId=>{const el=document.getElementById(fieldId);if(!el)return;el.addEventListener('input',()=>{clearTimeout(draftTimer);const st=document.getElementById('draftStatus');if(st)st.textContent='Salvando rascunho...';draftTimer=setTimeout(saveDraft,1200);});});}
+async function saveDraft(){if(!currentClient)return;const content=JSON.stringify({tema:document.getElementById('gen_tema')?.value||'',autor:document.getElementById('gen_autor')?.value||'',niche:document.getElementById('gen_niche')?.value||'',savedAt:new Date().toISOString()});try{await fetch(API+'/api/clients/'+currentClient.id+'/drafts',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({field_key:'gerador',content})});const now=new Date().toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});const st=document.getElementById('draftStatus');if(st)st.textContent='✓ Rascunho salvo às '+now;}catch(e){}}
+async function loadDraft(){if(!currentClient)return;try{const drafts=await fetch(API+'/api/clients/'+currentClient.id+'/drafts').then(r=>r.json());const d=drafts['gerador'];if(!d)return;const data=JSON.parse(d.content);if(data.tema)document.getElementById('gen_tema').value=data.tema;if(data.autor)document.getElementById('gen_autor').value=data.autor;if(data.niche)document.getElementById('gen_niche').value=data.niche;const st=document.getElementById('draftStatus');if(st&&data.savedAt){const when=new Date(data.savedAt).toLocaleString('pt-BR',{day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit'});st.textContent='↩ Rascunho restaurado de '+when;setTimeout(()=>{if(st.textContent.startsWith('↩'))st.textContent='';},4000);}}catch(e){}}
+async function limparRascunho(){if(!currentClient){alert('Selecione um cliente');return;}if(!confirm('Apagar rascunho salvo deste cliente?'))return;try{await fetch(API+'/api/clients/'+currentClient.id+'/drafts',{method:'DELETE'});DRAFT_FIELDS.forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});document.getElementById('resultadoGerador').style.display='none';const st=document.getElementById('draftStatus');if(st){st.textContent='Rascunho apagado';setTimeout(()=>{st.textContent='';},2000);}}catch(e){alert('Erro: '+e.message);}}
+loadClients().then(()=>{loadDashboard();setupDraftAutosave();});
 </script>
 </body>
 </html>
